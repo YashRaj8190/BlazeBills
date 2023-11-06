@@ -1,7 +1,16 @@
 import React from 'react';
+import Home from './Components/Homepage/Home';
+import {Routes,Route} from'react-router-dom'
+import Signup from './Components/SignUp/Sign';
+
 function App(){
   return (<>
-  <h1 className=' text-5xl text-blue-400 text-center font-bold'>Welcome to my website</h1>
+    <div>
+    <Routes >
+      <Route path="/" Component={Home} />
+      <Route path="/signup" Component={Signup} />
+    </Routes>
+    </div>
   </>)
 }
 export default App;
