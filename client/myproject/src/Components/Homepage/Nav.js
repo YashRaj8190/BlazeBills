@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Nav() {
   return (
@@ -8,7 +9,7 @@ function Nav() {
     <div className="flex items-center space-x-4">
       <div className="essentials space-x-4">
         <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 hover:text-white" >Login</button>
-        <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 hover:text-white">Sign Up</button>
+        <Link to = "/signup"><button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 hover:text-white">Sign Up</button></Link>
       </div>
     </div>
   </div>
