@@ -5,11 +5,15 @@ const database =require('./database');
 const authrouter=require('./routers/approuters');
 const app=express();
 const User=require('./models/UserSchema');
-app.use(express.json());
+const transectionrouter=require('./routers/transactionrouter');
+
 app.use(cors());
+app.use(bodyParser.json());
+app.use(express.json());
 const port=5000;
 database();
 app.use('/',authrouter);
+app.use('/',transectionrouter);
 
   
   app.listen(port, () => {

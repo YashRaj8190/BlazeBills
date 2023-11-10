@@ -36,8 +36,9 @@ class Authcontroller{
     
     const isUserPresent= await User.findOne({email:userEmail});
     
-    if(!isUserPresent){
-        res.status(200).json({message:"invalid credentials"});
+    if(isUserPresent==null){
+        
+        res.status(500).json({message:"invalid credentials"});
     }
     else{
         const userpassword=req.body.password;
