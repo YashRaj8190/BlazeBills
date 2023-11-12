@@ -63,13 +63,13 @@ const Login = () => {
             />
           </div>
           <div className="flex items-center justify-center mt-4">
-  <button
-    type="submit"
-    className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-200"
-  >
-    Login
-  </button>
-</div>
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-200"
+          >
+            Login
+          </button>
+          </div>
 
         </form>
       </div>
