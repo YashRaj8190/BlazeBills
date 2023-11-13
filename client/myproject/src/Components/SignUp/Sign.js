@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Signup(){
+  const navigate=useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,8 +16,26 @@ function Signup(){
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
+    
+    try{
+      await axios.post("http://localhost:5000/user/signup",formData).then((res)=>{
+        const user=res.data.newUser;
+        //console.log(user);
+        localStorage.setItem("user",JSON.stringify(user));
+        navigate("/dashboard");
+      }) 
+    }
+    catch(error){
+      if(error.response.data.message){
+        alert(error.response.data.message);
+      }
+      else{
+        alert(error.response.data);
+      }
+      
+    }
   };
 
   const backgroundImageUrl =

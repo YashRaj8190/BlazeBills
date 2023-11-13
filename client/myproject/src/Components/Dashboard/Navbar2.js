@@ -6,7 +6,7 @@ const Navbar2 = () => {
       <div className="flex space-x-4">
         <Link to="/analytics" className="text-white px-3.5 py-2 text-lg">Analytics</Link>
         <Link to="/transactions" className="text-white px-3.5 py-2 text-lg">Past Transactions</Link>
-        <Link to="/addExpense" className="text-white px-3.5 py-2 text-lg">Add Expense</Link>
+        <Link to="/addexpense" className="text-white px-3.5 py-2 text-lg">Add Expense</Link>
         <Link to="/groups" className="text-white px-3.5 py-2 text-lg">Groups</Link>
       </div>
       <button className="bg-red-500 text-white px-3.5 py-2 rounded-xl mr-5">Logout</button>

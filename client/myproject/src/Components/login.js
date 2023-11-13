@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
+  const navigate=useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -12,16 +14,23 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    // Add your login logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
+    try{
+      await axios.post("http://localhost:5000/user/login",{email,password}).then((res)=>{
+        const user=res.data.userdetails;
+        console.log(user);
+        localStorage.setItem("user",JSON.stringify(user));
+        navigate("/dashboard");
+      }) 
+    }
+    catch(error){
+      alert(error.response.data.message);
+    }
   };
 
   const backgroundImageUrl =
   'https://static.vecteezy.com/system/resources/previews/004/837/342/non_2x/abstract-futuristic-background-with-glowing-light-effect-vector.jpg';
-
   return (
     <div
       className="min-h-screen flex items-center justify-center"
