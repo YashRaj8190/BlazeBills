@@ -47,7 +47,7 @@ function TransactionForm() {
     >
       <form
         onSubmit={handleSubmit}
-        style={{width:"400px"}} className="bg-opacity-20 bg-white bg-blur-lg backdrop-filter backdrop-blur-lg backdrop-saturate-150 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 transition-transform duration-300 ease-in-out transform hover:scale-105"
+        style={{width:"400px"}} className="bg-opacity-20 bg-white bg-blur-lg backdrop-filter backdrop-blur-lg backdrop-saturate-150 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 transition-transform duration-300 ease-in-out transform hover:scale-110"
       >
         
 
@@ -91,17 +91,23 @@ function TransactionForm() {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
-            Category
-          </label>
-          <input
-            type="text"
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
+  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
+    Category
+  </label>
+  <select
+    name="category"
+    value={formData.category}
+    onChange={handleChange}
+    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  >
+    <option value="">Select a category</option>
+    <option value="groceries">Groceries</option>
+    <option value="utilities">Utilities</option>
+    <option value="transportation">Transportation</option>
+    <option value="dining">Dining</option>
+    
+  </select>
+</div>
 
         
        
@@ -109,7 +115,7 @@ function TransactionForm() {
         <div className="text-center">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
           >
             Add Transaction
           </button>
@@ -118,5 +124,4 @@ function TransactionForm() {
     </div>
   );
 }
-
 export default TransactionForm;

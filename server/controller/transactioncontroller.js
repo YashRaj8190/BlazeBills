@@ -24,6 +24,7 @@ class Transactioncontroller {
         oneWeekAgo.setDate(today.getDate() - 7);
 
         const transactions = await Transactiondetails.find({
+          user_id:req.body._id,
           date: { $gte: oneWeekAgo, $lte: today },
         });
         const totalAmountByDay = {};
@@ -52,6 +53,7 @@ class Transactioncontroller {
         oneYearAgo.setFullYear(today.getFullYear() - 1);
 
         const transactions = await Transactiondetails.find({
+          user_id:req.body._id,
           date: { $gte: oneYearAgo, $lte: today },
         });
 
@@ -81,7 +83,7 @@ class Transactioncontroller {
     // yearly transaction amount
     if (req.body.duration === '365') {
       try {
-        const transactions = await Transactiondetails.find();
+        const transactions = await Transactiondetails.find({user_id:req.body._id});
 
         const yearlyTotals = {};
 
