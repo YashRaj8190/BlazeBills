@@ -6,9 +6,9 @@ import Login from './Components/login';
 import Addtransectionform from './Components/Addexpenses';
 import { Navigate } from 'react-router-dom';
 import Dashboard from './Components/Dashboard/dasboard';
-import Navbar2 from './Components/Dashboard/Navbar2';
-import Footer from './Components/Homepage/Footer';
-
+import Transaction from './Components/Dashboard/pages/transactions';
+import TransactionForm from './Components/Addexpenses';
+import Body2 from './Components/Dashboard/Body2';
 function App(){
   return (<>
     <div>
@@ -29,7 +29,11 @@ function App(){
         </Protectedroute>
        }
       /> */}
-      <Route path="/dashboard" Component={Dashboard} />
+      <Route path="/dashboard" Component={Dashboard} >
+                <Route path="" Component={Body2} />
+                <Route path="addexpense" Component={TransactionForm}/>
+                <Route path="transactions" Component={Transaction} />
+        </Route>   
     </Routes>
     </div>
   </>)

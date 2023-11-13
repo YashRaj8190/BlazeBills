@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function TransactionForm() {
+  const userString = localStorage.getItem("user");
+    const userObject = JSON.parse(userString);
+    const user_id=userObject._id;
+    
   const navigate=useNavigate();
   const [formData, setFormData] = useState({
     transactionType: '',
@@ -17,12 +21,10 @@ function TransactionForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    
     try{
-      await axios.post("http://localhost:5000/user/addtransaction",formData).then((res)=>{
-        const user=res.data.newUser;
-        //console.log(user);
-        localStorage.setItem("user",JSON.stringify(user));
+      await axios.post("http://localhost:5000/user/addtransaction",{formData,user_id}).then((res)=>{
+        
         console.log('Transaction added');
         navigate("/dashboard");
       }) 
