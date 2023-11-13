@@ -17,16 +17,17 @@ class Transactioncontroller {
   };
   static getTransactiondetails = async (req, res) => {
     // last week transection amount
-    if (req.body.duration === '7') {
+    
+    if (req.body.view === '7') {
       try {
         const today = new Date();
         const oneWeekAgo = new Date();
         oneWeekAgo.setDate(today.getDate() - 7);
 
         const transactions = await Transactiondetails.find({
-          user_id:req.body._id,
+          user_id:req.body.user_id,
           date: { $gte: oneWeekAgo, $lte: today },
-        });
+        }).sort({date:-1});
         const totalAmountByDay = {};
 
         transactions.forEach((transaction) => {
@@ -38,7 +39,7 @@ class Transactioncontroller {
 
           totalAmountByDay[dateKey] += transaction.amount;
         });
-
+          
         res.status(200).json(totalAmountByDay);
       } catch (err) {
 
@@ -46,16 +47,16 @@ class Transactioncontroller {
       }
     }
     // monthly total transaction amount
-    if (req.body.duration === '30') {
+    if (req.body.view === '30') {
       try {
         const today = new Date();
         const oneYearAgo = new Date();
         oneYearAgo.setFullYear(today.getFullYear() - 1);
 
         const transactions = await Transactiondetails.find({
-          user_id:req.body._id,
+          user_id:req.body.user_id,
           date: { $gte: oneYearAgo, $lte: today },
-        });
+        }).sort({date:1});
 
         const monthlyTotals = {};
 
@@ -72,7 +73,7 @@ class Transactioncontroller {
 
           monthlyTotals[key] += transaction.amount;
         });
-
+       
         res.status(200).json(monthlyTotals);
       }
       catch (err) {
@@ -81,9 +82,9 @@ class Transactioncontroller {
 
     };
     // yearly transaction amount
-    if (req.body.duration === '365') {
+    if (req.body.view === '365') {
       try {
-        const transactions = await Transactiondetails.find({user_id:req.body._id});
+        const transactions = await Transactiondetails.find({user_id:req.body.user_id}).sort({date:-1});
 
         const yearlyTotals = {};
 
@@ -98,7 +99,7 @@ class Transactioncontroller {
 
           yearlyTotals[key] += transaction.amount;
         });
-
+        
         res.status(200).json(yearlyTotals);
       }
       catch (err) {

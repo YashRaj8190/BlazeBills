@@ -1,28 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
-
-const dataObject = {
-    '2023-01-01': 100,
-    '2023-01-02': 120,
-    '2023-01-03': 130,
-    '2023-02-04': 140,
-    '2023-03-05': 150,
-    '2023-03-06': 400,
-    '2023-03-07': 150,
-    
-};
-
-const convertObjectToArray = (dataObject) => {
-    return Object.entries(dataObject).map(([date, expenses]) => {
-        return { date, expenses }
-    });
-};
-
-const data = convertObjectToArray(dataObject);
+import axios from "axios";
 
 function Chart(){
+    const convertObjectToArray = (dataObject) => {
+        return Object.entries(dataObject).map(([date, expenses]) => {
+            return { date, expenses }
+        });
+    };
     const [view, setView] = useState('7');
-
+    const [data,setdata]=useState([]);
+    
+   
+    
+    const handelechange=async(e)=>{
+        setView(e.target.value);
+    }
+    useEffect(() => {
+        const user_id = JSON.parse(localStorage.getItem('user'))._id;
+      
+        try {
+          axios.post("http://localhost:5000/user/gettransaction", { view, user_id })
+            .then((res) => {
+              const newData = convertObjectToArray(res.data);
+              setdata(newData);
+              
+            });
+        } catch (err) {
+          alert("Some error occurred", err);
+         
+        }
+      }, [view]);
+      
     let currentView = "Weekly Expenses";
 
     switch(view){
@@ -48,7 +57,7 @@ function Chart(){
                 <select
                     className="w-40 h-10 bg-blue-300 border border-blue-800 rounded-md py-2 px-4 focus:outline-none focus:border-blue-500"
                     value={view}
-                    onChange={(e) => {return ( setView(e.target.value) ) }}
+                    onChange={handelechange}
                 >   
                     <option value="7">Weekly</option>
                     <option value="30">Monthly</option>
