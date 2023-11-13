@@ -2,11 +2,11 @@ import React from "react";
 
 function Footer() {
   return (
-    <div class="relative w-full bottom-0">
-    <div class="bg-gray-800 text-white py-4 absolute w-full bottom-0 container mx-auto text-center">
-        <h1 class="text-xl">&copy; Copyright 2023</h1>
-  </div>   
- </div>
+    <div className="relative w-full bottom-0">
+      <div className="bg-gray-800 text-white py-4 fixed w-full bottom-0 left-0 right-0 text-center">
+        <h1 className="text-xl">&copy; Copyright 2023</h1>
+      </div>
+    </div>
   );
 }
 
