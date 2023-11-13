@@ -9,6 +9,7 @@ import Dashboard from './Components/Dashboard/dasboard';
 import Transaction from './Components/Dashboard/pages/transactions';
 import TransactionForm from './Components/Addexpenses';
 import Body2 from './Components/Dashboard/Body2';
+import Chart from './Components/Analytics/chart';
 function App(){
   return (<>
     <div>
@@ -35,6 +36,7 @@ function App(){
                 <Route path="" Component={Body2} />
                 <Route path="addexpense" Component={TransactionForm}/>
                 <Route path="transactions" Component={Transaction} />
+                <Route path="analytics" Component={Chart} />
         </Route>   
     </Routes>
     </div>
