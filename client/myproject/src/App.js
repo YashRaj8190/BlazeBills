@@ -15,21 +15,23 @@ function App(){
     <Routes >
       <Route path="/" 
        element={
-        // <Protectedroute>
           <Home/>
-        // </Protectedroute>
        }
       />
       <Route path="/signup" Component={Signup} />
       <Route path="/login" Component={Login} />
-      {/* <Route path="/addexpense" 
+      <Route path="/addexpense" 
       element={
         <Protectedroute>
           <Addtransectionform/>
         </Protectedroute>
        }
-      /> */}
-      <Route path="/dashboard" Component={Dashboard} >
+      />
+      <Route path="/dashboard" element={
+        <Protectedroute>
+          <Dashboard/>
+        </Protectedroute>
+       } >
                 <Route path="" Component={Body2} />
                 <Route path="addexpense" Component={TransactionForm}/>
                 <Route path="transactions" Component={Transaction} />
@@ -43,7 +45,7 @@ export function Protectedroute(props){
     return props.children;
   }
   else{
-    return <Navigate to="/home"/>
+    return <Navigate to="/"/>
     
   }
 }
