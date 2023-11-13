@@ -25,7 +25,7 @@ function TransactionForm() {
     try{
       await axios.post("http://localhost:5000/user/addtransaction",{formData,user_id}).then((res)=>{
         
-        console.log('Transaction added');
+        alert('Transaction added');
         navigate("/dashboard");
       }) 
     }
