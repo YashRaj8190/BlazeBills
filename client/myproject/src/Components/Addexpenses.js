@@ -43,16 +43,16 @@ function TransactionForm() {
 
   return (
     <div 
-     style={{color:"black",opacity:"1"}} className="  h-screen flex items-center justify-center bg-gradient-to-r from-blue-400 to-purple-500"
+     style={{color:"black",opacity:"1"}} className="  h-screen flex items-center justify-center bg-gradient-to-r from-blue-400 to-purple-500 "
     >
       <form
         onSubmit={handleSubmit}
-        style={{width:"400px"}} className="bg-opacity-20 bg-white bg-blur-lg backdrop-filter backdrop-blur-lg backdrop-saturate-150 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 transition-transform duration-300 ease-in-out transform hover:scale-110"
+        style={{width:"400px"}} className="bg-opacity-20 bg-white dark:text-white dark:bg-slate-800 bg-blur-lg backdrop-filter  shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 transition-transform duration-100 ease-in-out transform hover:scale-110"
       >
-        
+        <div className='m-4'><h1 className='text-4xl font-bold text-center text-gray-800 dark:text-white'>ADD EXPENSE</h1></div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="transactionType">
+          <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white" htmlFor="transactionType">
             Transaction Type
           </label>
           <input
@@ -60,12 +60,12 @@ function TransactionForm() {
             name="transactionType"
             value={formData.transactionType}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white dark:bg-slate-800"
           />
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+          <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white" htmlFor="description">
             Description
           </label>
           <input
@@ -73,12 +73,12 @@ function TransactionForm() {
             name="description"
             value={formData.description}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white dark:bg-slate-800 "
           />
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
+          <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white" htmlFor="amount">
             Amount
           </label>
           <input
@@ -86,19 +86,19 @@ function TransactionForm() {
             name="amount"
             value={formData.amount}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus: -none focus:shadow-outline dark:text-white dark:bg-slate-800"
           />
         </div>
 
         <div className="mb-4">
-  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
+  <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white " htmlFor="category">
     Category
   </label>
   <select
     name="category"
     value={formData.category}
     onChange={handleChange}
-    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white dark:bg-slate-800"
   >
     <option value="">Select a category</option>
     <option value="groceries">Groceries</option>
