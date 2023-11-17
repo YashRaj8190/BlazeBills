@@ -12,6 +12,8 @@ import Body2 from './Components/Dashboard/Body2';
 import NotFound from './Components/NotFound';
 import Chart from './Components/Analytics/chart';
 import AllGroups from './Components/Dashboard/AllGroups';
+import GroupPage from './Components/Group/GroupCreate';
+import GroupExpense from './Components/Group/Groupexpense';
 function App(){
   return (<>
     <div>
@@ -40,6 +42,7 @@ function App(){
                 <Route path="transactions" Component={Transaction} />
                 <Route path="analytics" Component={Chart} />
                 <Route path="allgroups" Component={AllGroups} />
+                
         </Route>
         <Route path="/*" element={<NotFound />} />   
     </Routes>

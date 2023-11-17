@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Darkmode from "../darkmode";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 const Navbar2 = () => {
@@ -35,7 +34,6 @@ const Navbar2 = () => {
       </div>
      
       <div className="flex items-center">
-      <Darkmode/>
   <button className="bg-gray-200 text-black px-3.5 py-2 rounded-xl mr-2">
     {JSON.parse(localStorage.getItem('user')).name}
   </button>

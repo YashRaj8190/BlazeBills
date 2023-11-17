@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 const groupSchema = new mongoose.Schema({
-  name: {
+  groupName: {
     type: String,
     required: [true, 'Group name is required.'],
   },
   admin: {
-    type: String,
+    type: Object,
     required: true,
   },
   members:{

@@ -7,6 +7,7 @@ const app=express();
 const User=require('./models/UserSchema');
 const transactionrouter=require('./routers/transactionrouter');
 const grouptransactionrouter=require('./routers/grouptransactionrouter');
+const grouprouter=require('./routers/groupRouter');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -16,6 +17,7 @@ database();
 app.use('/',authrouter);
 app.use('/',transactionrouter);
 app.use('/',grouptransactionrouter);
+app.use('/',grouprouter);
 
   
   app.listen(port, () => {
