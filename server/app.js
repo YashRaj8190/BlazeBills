@@ -5,7 +5,8 @@ const database =require('./database');
 const authrouter=require('./routers/approuters');
 const app=express();
 const User=require('./models/UserSchema');
-const transectionrouter=require('./routers/transactionrouter');
+const transactionrouter=require('./routers/transactionrouter');
+const grouptransactionrouter=require('./routers/grouptransactionrouter');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -13,7 +14,8 @@ app.use(express.json());
 const port=5000;
 database();
 app.use('/',authrouter);
-app.use('/',transectionrouter);
+app.use('/',transactionrouter);
+app.use('/',grouptransactionrouter);
 
   
   app.listen(port, () => {

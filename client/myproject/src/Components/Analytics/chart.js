@@ -47,13 +47,13 @@ function Chart(){
     }
     
     return (
-        <div className= "p-8 h-full">
+        <div className= "p-8 h-full  dark:bg-slate-900 dark:text-white">
             
-            <div className="flex justify-center"><h1 className="font-extrabold text-6xl mb-4 text-gray-800 font-serif">Expenses Analytics</h1></div>
+            <div className="flex justify-center"><h1 className="font-extrabold text-6xl mb-4 text-gray-800 font-serif dark:text-white">Expenses Analytics</h1></div>
 
             {/* Choose View */}
-            <div className="mb-8 mt-5 flex items-center justify-center" >
-                <label className="text-gray-700 font-bold mb-1 mr-2 font-serif text-2xl">Choose View : </label>
+            <div className="mb-8 mt-5 flex items-center justify-center " >
+                <label className="text-gray-700 font-bold mb-1 mr-2 font-serif text-2xl dark:text-white">Choose View : </label>
                 <select
                     className="w-40 h-10 bg-blue-300 border border-blue-800 rounded-md py-2 px-4 focus:outline-none focus:border-blue-500"
                     value={view}
@@ -69,11 +69,11 @@ function Chart(){
                 <div className="flex items-center justify-center text-6xl h-3/5">
                     <h1 className="font-bold text-red-800 font-serif" >No Data Available !!!</h1>
                 </div> :
-                <div className="flex justify-center mt-15">
+                <div className="flex justify-center mt-15  dark:bg-slate-900 dark:text-white">
             <ResponsiveContainer width="80%" height={380}>
                 <BarChart data={data} >
                 <XAxis dataKey="date" tick={{ fontSize: 14 , fontWeight: 'bold' , fill: 'black'  }}/>
-                <YAxis tick={{ fontSize: 14 , fontWeight: 'bold' , fill: 'black'  }}/>
+                <YAxis tick={{ fontSize: 14 , fontWeight: 'bold' , fill: 'black' }}/>
                 <Tooltip />
                 <Legend />
                 <Bar dataKey="expenses" fill="#7E354D"  stroke="#3D0C02" strokeWidth={2} name = {currentView} />

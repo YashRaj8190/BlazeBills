@@ -4,12 +4,11 @@ import { Link } from "react-router-dom";
 
 function Body() {
   return (
-    <div>  
+    <div className=" dark:bg-slate-900 dark:text-white">  
       <div>
-      <div class="text-center p-10"></div>
-      <main className="main-body flex mt-16">
-      <div className="main-text flex-1 p-8">
-      <h1 className="text-5xl font-bold ml-4 mt-20 mb-4 text-center">TRACK YOUR EXPENSES</h1>
+      <main className="main-body flex mt-16 h-screen">
+      <div className="main-text flex-1 p-8 items-center mt-20 mb-20">
+      <h1 className="text-5xl font-bold ml-4 mt-20 mb-10 text-center">TRACK YOUR EXPENSES</h1>
         <p className="text-lg mt-8 ml-4 mb-4">
           Tracking your expenses is the key to financial success. By meticulously monitoring your spending, you gain control over your budget, identify areas for savings, and make informed financial decisions. This powerful practice helps you achieve your financial goals, build wealth, and live a more financially secure and fulfilling life.
         </p>
@@ -24,8 +23,6 @@ function Body() {
       </div>
     </main>
       <div/>
-      <div className="text-center p-8">
-      </div>
     </div>
 
     <div className="grid grid-cols-2 grid-rows-3 gap-5 mb-20 ml-7 mr-7">

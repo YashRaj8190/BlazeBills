@@ -2,7 +2,7 @@ import React from 'react';
 
 const Card = ({ title, details, imageUrl }) => {
   return (
-    <div className="bg-white shadow-md overflow-hidden flex">
+    <div className="bg-white shadow-md overflow-hidden flex  dark:bg-slate-900 dark:text-black">
       <div className="w-1/3 flex items-center">
         <img src={imageUrl} className="w-full h-auto" />
       </div>
