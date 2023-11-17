@@ -55,7 +55,7 @@ function Chart(){
             <div className="mb-8 mt-5 flex items-center justify-center " >
                 <label className="text-gray-700 font-bold mb-1 mr-2 font-serif text-2xl dark:text-white">Choose View : </label>
                 <select
-                    className="w-40 h-10 bg-blue-300 border border-blue-800 rounded-md py-2 px-4 focus:outline-none focus:border-blue-500"
+                    className="w-40 h-10 bg-blue-200 dark:bg-black border border-blue-800 rounded-md py-2 px-4 focus:outline-none focus:border-blue-300"
                     value={view}
                     onChange={handelechange}
                 >   
@@ -67,7 +67,7 @@ function Chart(){
 
             {(data.length === 0) ? 
                 <div className="flex items-center justify-center text-6xl h-3/5">
-                    <h1 className="font-bold text-red-800 font-serif" >No Data Available !!!</h1>
+                    <h1 className="font-bold text-red-800 font-serif dark:bg-yellow-500" >No Data Available !!!</h1>
                 </div> :
                 <div className="flex justify-center mt-15  dark:bg-slate-900 dark:text-white">
             <ResponsiveContainer width="80%" height={380}>
