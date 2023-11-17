@@ -3,4 +3,5 @@ const groupTransactionController=require('../controller/grouptransactioncontroll
 const router=express.Router();
 router.post('/user/grouptransaction',groupTransactionController.addGroupTransaction);
 router.post('/user/getusersgrouptransaction',groupTransactionController.getUsersGroupTransaction);
+router.post('/user/getsinglegrouptransaction',groupTransactionController.getSingleGroupTransaction);
 module.exports=router;

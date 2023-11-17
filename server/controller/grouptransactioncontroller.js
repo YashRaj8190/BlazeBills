@@ -36,5 +36,15 @@ class groupTransactionController{
             res.status(500).json({message:"unable to fetch transactions",error:err});
         }
     }
+    static getSingleGroupTransaction=async(req,res)=>{
+        console.log(req.body);
+        try{
+          const singleTransaction=await GroupTransaction.find(req.body);
+          res.status(200).json(singleTransaction);
+        }
+        catch(err){
+            res.status(500).json({message:"unable to fetch data"});
+        }
+    }
 }
 module.exports=groupTransactionController;
