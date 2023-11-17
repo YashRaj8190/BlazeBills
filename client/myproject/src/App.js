@@ -12,6 +12,7 @@ import Body2 from './Components/Dashboard/Body2';
 import NotFound from './Components/NotFound';
 import Chart from './Components/Analytics/chart';
 import GroupPage from './Components/Group/GroupCreate';
+import GroupExpense from './Components/Group/Groupexpense';
 function App(){
   return (<>
     <div>
@@ -39,7 +40,7 @@ function App(){
                 <Route path="addexpense" Component={TransactionForm}/>
                 <Route path="transactions" Component={Transaction} />
                 <Route path="analytics" Component={Chart} />
-                <Route path="groups" Component={GroupPage} />
+                
         </Route>
         <Route path="/*" element={<NotFound />} />   
     </Routes>

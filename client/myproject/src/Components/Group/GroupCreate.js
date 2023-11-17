@@ -17,11 +17,11 @@ const GroupPage = () => {
       alert('Please enter at least one member.');
       return;
     }
-    const admin=JSON.parse(localStorage.getItem('user'));
-    console.log(admin);
+    const adminuser=JSON.parse(localStorage.getItem('user'));
+    console.log(adminuser);
     const newGroup = {
       groupName: groupName,
-      admin:admin.phone,
+      admin:{phone:adminuser.phone,name:adminuser.name},
       members: groupMembers,
     };
     console.log(newGroup);

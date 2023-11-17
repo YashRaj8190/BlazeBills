@@ -6,7 +6,7 @@ const groupSchema = new mongoose.Schema({
     required: [true, 'Group name is required.'],
   },
   admin: {
-    type: String,
+    type: Object,
     required: true,
   },
   members:{

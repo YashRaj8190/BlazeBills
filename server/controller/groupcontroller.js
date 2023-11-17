@@ -20,11 +20,16 @@ class groupController {
     }
     static getUsersGroup=async(req,res)=>{
         try {
-            const userPhone = req.body.phone; // Assuming userPhone is the variable containing the user's phone number fetched through his details
+            const UserPhoneNumber = req.body.phone; // Assuming userPhone is the variable containing the user's phone number fetched through his details
         
-            const groups = await Group.find({ 'members.phone': userPhone });
+            const groups = await Group.find({ 
+                $or: [
+                    { 'admin.phone': UserPhoneNumber },
+                    { 'members.phone': UserPhoneNumber }
+                  ]
+            });
         
-            res.json(groups);
+            res.status(501).json(groups);
           } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Some error occurred' });

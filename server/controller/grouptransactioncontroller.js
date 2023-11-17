@@ -20,15 +20,19 @@ class groupTransactionController{
         try{
 
             const usersGroupTransaction=await GroupTransaction.find({
-                $or:[
-                    { transactionFrom: req.body.phone },
-    { transactionMembers: { $elemMatch: { phone:req.body.phone } } }
-                   
+                $and:[
+                    {groupId:req.body.groupId},
+                    {$or:[
+                        { transactionFrom: req.body.userId },
+                       { transactionMembers: req.body.userId }
+                    ]}
                 ]
+                
         })
             res.status(200).json({message:"all data successfully fatched ", data:usersGroupTransaction});
         }
         catch(err){
+            console.log(err);
             res.status(500).json({message:"unable to fetch transactions",error:err});
         }
     }
