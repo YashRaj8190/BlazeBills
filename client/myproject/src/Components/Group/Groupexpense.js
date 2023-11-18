@@ -77,7 +77,7 @@ const GroupExpense = () => {
       <div className="w-1/2 pr-8 overflow-y-auto max-h-screen mr-5">
         {group && allExpenses.length > 0 && (
           <>
-            <h1 className="text-3xl font-bold mb-4">{group.name}</h1>
+            <h1 className="text-3xl font-bold mb-4 text-center">{group.groupName}</h1>
             <div className="mb-4">
               <table className="min-w-full border border-gray-300">
                 <thead>

@@ -5,10 +5,8 @@ import axios from 'axios';
 const FriendsModal = ({ onClose, transactionId }) => {
   const [transactionDetails, setTransactionDetails] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
-  const [isAmountPaid,setIsAmountPaid]=useState(false);
+  let isAmountPaid=false;
   const user = JSON.parse(localStorage.getItem('user'));
-
-  
   useEffect(() => {
     //console.log(transactionId);
     axios.post('http://localhost:5000/user/getsinglegrouptransaction', { _id: transactionId })
@@ -22,7 +20,6 @@ const FriendsModal = ({ onClose, transactionId }) => {
   }, [transactionId]);
 
   const markAsPaid = (phone) => {
-
     // Add logic for marking the transaction as paid
     setPhoneNumber(phone);
     console.log('Mark as Paid clicked');
@@ -40,14 +37,7 @@ const FriendsModal = ({ onClose, transactionId }) => {
         });
     }
   }, [phoneNumber, transactionId]);
-  useEffect(()=>{
-    {transactionDetails && transactionDetails.transactionFrom.phone!==user.phone && transactionDetails.transactionMembers.map((member)=>{
-      console.log("hello",member.ispaid);
-      if(member.ispaid){
-         setIsAmountPaid(true);
-      }
-    })}
-  },[user.phone])
+
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-75">
@@ -57,7 +47,7 @@ const FriendsModal = ({ onClose, transactionId }) => {
           <div>
             {user.phone === transactionDetails.transactionFrom.phone ? (
               <ul>
-                {transactionDetails.transactionMembers.length>0 && transactionDetails.transactionMembers.map((friend, index) => (
+                {transactionDetails.transactionMembers.length > 0 && transactionDetails.transactionMembers.map((friend, index) => (
                   <li key={index} className="mb-4">
                     {friend.ispaid ? `${friend.name} paid ${(transactionDetails.amount / (transactionDetails.transactionMembers.length + 1)).toFixed(2)} to You` : `${friend.name} will pay ${(transactionDetails.amount / (transactionDetails.transactionMembers.length + 1)).toFixed(2)} to You`}
                     <button
@@ -75,8 +65,12 @@ const FriendsModal = ({ onClose, transactionId }) => {
             ) : (
               <div className="mb-4">
                 <p>
-                  
-                  {isAmountPaid?`You paid ${(transactionDetails.amount / (transactionDetails.transactionMembers.length + 1)).toFixed(2)} to ${transactionDetails.transactionFrom.name}`:`You will pay ${(transactionDetails.amount / (transactionDetails.transactionMembers.length + 1)).toFixed(2)} to ${transactionDetails.transactionFrom.name}`}
+                  {transactionDetails.transactionMembers.length>0 && transactionDetails.transactionMembers.map((friend)=>{
+                    if(friend.phone===user.phone){
+                      isAmountPaid=true;
+                    }
+                  })}
+                  {isAmountPaid ? `You paid ${(transactionDetails.amount / (transactionDetails.transactionMembers.length + 1)).toFixed(2)} to ${transactionDetails.transactionFrom.name}` : `You will pay ${(transactionDetails.amount / (transactionDetails.transactionMembers.length + 1)).toFixed(2)} to ${transactionDetails.transactionFrom.name}`}
                 </p>
               </div>
             )}
