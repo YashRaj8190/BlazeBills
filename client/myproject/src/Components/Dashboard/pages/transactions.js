@@ -5,6 +5,10 @@ import { CSVLink } from 'react-csv';
 const Transaction = () => {
     const [transaction, setTransaction] = useState([]);
     const [isDropdownOpen, setDropdownOpen] = useState(false);
+    const [filterData,setFilteredData]=useState([]);
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [isfiltredDate,setIsFilteredDate]=useState(false);
     const dropdownRef = useRef(null);
     const userString = localStorage.getItem("user");
     const userObject = JSON.parse(userString);
@@ -13,6 +17,7 @@ const Transaction = () => {
         axios.post('http://localhost:5000/user/getalltransaction', userObject)
             .then(response => {
                 setTransaction(response.data);
+                console.log(response.data);
             })
             .catch(error => {
                 console.error('Error fetching transactions:', error);
@@ -22,6 +27,35 @@ const Transaction = () => {
     const closeDropdown = () => {
         setDropdownOpen(false);
     };
+    const handleFilter = () => {
+        const startDateObj = new Date(startDate);
+    const endDateObj = new Date(endDate);
+    endDateObj.setHours(23, 59, 59, 999);
+    const presentDate=Date.now();
+    if(startDateObj>endDateObj){
+        alert("start date can not be greater then end date");
+        return;
+    }
+    if(endDateObj>presentDate){
+        alert("please enter valid date");
+        return;
+    }
+
+    // Filter the data based on the date range
+    const filtered = transaction.filter((item) => {
+      const itemDate = new Date(item.date);
+      return itemDate >= startDateObj && itemDate <= endDateObj;
+    });
+
+    // Update the filtered data state
+    setFilteredData(filtered);
+    setIsFilteredDate(true);
+
+    // Your other filter logic or actions can be added here
+    console.log("Filtering data...", filtered);
+      };
+    
+    
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -45,18 +79,62 @@ const Transaction = () => {
         { label: 'Amount', key: 'amount' },
     ];
 
-    const data = transaction.map(trans => ({
+    let data=[];  
+    if(isfiltredDate){
+     data=  transaction.map(trans => ({
         date: new Date(trans.date).toLocaleString(),
         transactionType: trans.transactionType,
         category: trans.category,
         description: trans.description,
         amount: trans.amount,
     }));
+    }
+    else{
+        data=filterData.map(trans => ({
+            date: new Date(trans.date).toLocaleString(),
+            transactionType: trans.transactionType,
+            category: trans.category,
+            description: trans.description,
+            amount: trans.amount,
+        }));
+    }
 
     return (
         <div className="dark:bg-slate-800 dark:text-white h-screen">
 
             <h2 className="text-2xl text-center font-semibold dark:text-white py-5">Transaction History</h2>
+            <div className="flex justify-center p-4 space-x-4">
+  <div className="flex flex-col items-center">
+    <label htmlFor="startDate" className="text-gray-600">Start Date</label>
+    <input
+      id="startDate"
+      type="date"
+      value={startDate}
+      onChange={(e) => setStartDate(e.target.value)}
+      className="border p-2 mt-1"
+    />
+  </div>
+  
+  <div className="flex flex-col items-center">
+    <label htmlFor="endDate" className="text-gray-600">End Date</label>
+    <input
+      id="endDate"
+      type="date"
+      value={endDate}
+      onChange={(e) => setEndDate(e.target.value)}
+      className="border p-2 mt-1"
+    />
+  </div>
+
+  <button
+    onClick={handleFilter}
+    style={{height:'40px',marginTop:'30px'}}
+    className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200"
+  >
+    Apply Filter
+  </button>
+</div>
+
 
             <div className="flex justify-end mb-4">
                 <div className="relative inline-block mr-4" ref={dropdownRef}>
@@ -95,7 +173,21 @@ const Transaction = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {transaction && transaction.map((transactions) => (
+                        {!isfiltredDate && transaction && transaction.map((transactions) => (
+                            <tr key={transactions.id} className="hover:bg-gray-100 hover:text-black">
+                                <td className="py-2 px-4 font-semibold">{new Date(transactions.date).toLocaleDateString()} {new Date(transactions.date).toLocaleTimeString('en-US', {
+                                    hour: 'numeric',
+                                    minute: 'numeric',
+                                    second: 'numeric',
+                                    hour12: true // or false for 24-hour format
+                                })}</td>
+                                <td className="py-2 px-4 font-semibold">{transactions.transactionType}</td>
+                                <td className="py-2 px-4 font-semibold">{transactions.category}</td>
+                                <td className="py-2 px-4 font-semibold">{transactions.description}</td>
+                                <td className="py-2 px-4 font-semibold">{transactions.amount}</td>
+                            </tr>
+                        ))}
+                        {isfiltredDate && filterData && filterData.map((transactions) => (
                             <tr key={transactions.id} className="hover:bg-gray-100 hover:text-black">
                                 <td className="py-2 px-4 font-semibold">{new Date(transactions.date).toLocaleDateString()} {new Date(transactions.date).toLocaleTimeString('en-US', {
                                     hour: 'numeric',
