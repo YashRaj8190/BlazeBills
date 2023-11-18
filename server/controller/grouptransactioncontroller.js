@@ -46,5 +46,15 @@ class groupTransactionController{
             res.status(500).json({message:"unable to fetch data"});
         }
     }
+    static updateSingleGroupTransaction=async(req,res)=>{
+        //console.log(req.body);
+        try{
+        await GroupTransaction.updateOne({_id:req.body._id,'transactionMembers.phone':req.body.phone},{$set:{'transactionMembers.$.ispaid':true}});
+          res.status(200).json({message:"data updated successfully"});
+        }
+        catch(err){
+            res.status(500).json({message:"unable to update data"});
+        }
+    }
 }
 module.exports=groupTransactionController;

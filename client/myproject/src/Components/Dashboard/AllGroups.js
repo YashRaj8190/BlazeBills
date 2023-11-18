@@ -13,7 +13,7 @@ const AllGroups = () => {
         const userPhone = user.phone;
         const response = await axios.post('http://localhost:5000/user/getusersgroups', { userPhone });
         setGroups(response.data);
-        console.log(response.data);
+        console.log("all gorups",response.data);
         setIsDataFetched(true);
       } catch (error) {
         console.error('Error fetching groups:', error);

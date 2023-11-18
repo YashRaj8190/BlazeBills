@@ -2,72 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import FriendsModal from './FriendsModel';
+import { useParams } from 'react-router-dom';
 
 const GroupExpense = () => {
-  const data = [
-    {
-      _id: "groupA123",
-      name: "Group A",
-      admin: "1234567890",
-      members: [
-        {
-          name: "MemberA1",
-          phone: "1214567890",
-        },
-        {
-          name: "MemberA2",
-          phone: "1224567890",
-        },
-        {
-          name: "MemberA3",
-          phone: "1234567890",
-        },
-        {
-          name: "MemberA4",
-          phone: "1244567890",
-        },
-        {
-          name: "MemberA5",
-          phone: "9876543210",
-        },
-      ],
-    },
-    {
-      _id: "groupB456",
-      name: "Group B",
-      admin: "1112223333",
-      members: [
-        {
-          name: "MemberB1",
-          phone: "1112223333",
-        },
-        {
-          name: "MemberB2",
-          phone: "4445556666",
-        },
-      ],
-    },
-    {
-      _id: "groupC789",
-      name: "Group C",
-      admin: "5557778888",
-      members: [
-        {
-          name: "MemberC1",
-          phone: "5557778888",
-        },
-        {
-          name: "MemberC2",
-          phone: "9990001111",
-        },
-      ],
-    },
-  ];
-  const group = data[0];
-  const groupId = group._id;
+  const { groupId } = useParams();
+
+
+
   const admin = JSON.parse(localStorage.getItem('user'));
 
   const [amount, setAmount] = useState('');
+  const [group, setGroup] = useState();
   const [expenseDetails, setExpenseDetails] = useState('');
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [allExpenses, setAllExpenses] = useState([]);
@@ -89,7 +34,7 @@ const GroupExpense = () => {
     try {
       const newTransaction = {
         groupId,
-        transactionFrom:{name:admin.name,phone:admin.phone},
+        transactionFrom: { name: admin.name, phone: admin.phone },
         amount,
         expenseDetails,
         transactionMembers: selectedMembers,
@@ -114,14 +59,23 @@ const GroupExpense = () => {
     };
 
     axios.post("http://localhost:5000/user/getusersgrouptransaction", usersGroupTransaction)
-      .then((res) => { setAllExpenses(res.data.data); console.log(res.data.data); })
+      .then((res) => { setAllExpenses(res.data.data);  })
       .catch((err) => console.log("Something went wrong", err.message));
   }, [allExpenses.length]);
+
+  useEffect(() => {
+    axios.post("http://localhost:5000/user/getsinglegroup", { groupId })
+      .then((res) => {
+        console.log(res.data[0]);
+        setGroup(res.data[0]);
+      })
+      .catch((err) => console.log("Something went wrong", err.message));
+  }, [groupId]);
 
   return (
     <div className="container mx-auto p-4 flex">
       <div className="w-1/2 pr-8 overflow-y-auto max-h-screen mr-5">
-        {allExpenses.length > 0 && (
+        {group && allExpenses.length > 0 && (
           <>
             <h1 className="text-3xl font-bold mb-4">{group.name}</h1>
             <div className="mb-4">
@@ -174,25 +128,8 @@ const GroupExpense = () => {
           </div>
           <div className="mb-4">
             <label className="block text-sm font-bold mb-2">Select Members</label>
-            {group &&
+            {group &&group.members.length>0&&
               group.members.map((member) => (
-                // <div key={member.phone} className="flex items-center">
-                //   <input
-                //     type="checkbox"
-                //     id={member.phone}
-                //     value={`${member.name}-${member.phone}`}
-                //     checked={selectedMembers.includes(`${member.name}-${member.phone}`)}
-                //     onChange={() => {
-                //       const memberId = `${member.name}-${member.phone}`;
-                //       const updatedMembers = selectedMembers.includes(memberId)
-                //         ? selectedMembers.filter((member) => member !== memberId)
-                //         : [...selectedMembers, memberId];
-                //       setSelectedMembers(updatedMembers);
-                //     }}
-                //     className="mr-2"
-                //   />
-                //   <label htmlFor={member.phone}>{member.name}-{member.phone}</label>
-                // </div>
                 <div key={member.phone} className="flex items-center">
                   <input
                     type="checkbox"

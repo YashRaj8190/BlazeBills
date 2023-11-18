@@ -4,4 +4,5 @@ const router=express.Router();
 router.post('/user/grouptransaction',groupTransactionController.addGroupTransaction);
 router.post('/user/getusersgrouptransaction',groupTransactionController.getUsersGroupTransaction);
 router.post('/user/getsinglegrouptransaction',groupTransactionController.getSingleGroupTransaction);
+router.post('/user/updatesinglegrouptransaction',groupTransactionController.updateSingleGroupTransaction);
 module.exports=router;
