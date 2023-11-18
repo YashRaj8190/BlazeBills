@@ -23,8 +23,8 @@ class groupTransactionController{
                 $and:[
                     {groupId:req.body.groupId},
                     {$or:[
-                        { transactionFrom: req.body.userId },
-                       { transactionMembers: req.body.userId }
+                        { 'transactionFrom.phone': req.body.userId },
+                       { 'transactionMembers.phone':req.body.userId}
                     ]}
                 ]
                 
@@ -37,7 +37,7 @@ class groupTransactionController{
         }
     }
     static getSingleGroupTransaction=async(req,res)=>{
-        console.log(req.body);
+        //console.log(req.body);
         try{
           const singleTransaction=await GroupTransaction.find(req.body);
           res.status(200).json(singleTransaction);

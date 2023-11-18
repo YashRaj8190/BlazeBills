@@ -28,11 +28,11 @@ const FriendsModal = ({ onClose, transactionId }) => {
         <h2 className="text-3xl font-bold mb-4">{transactionDetails && transactionDetails.expenseDetails}</h2>
         {transactionDetails && (
           <div>
-            {user.phone === transactionDetails.transactionFrom.split('-')[1] ? (
+            {user.phone === transactionDetails.transactionFrom.phone ? (
               <ul>
                 {transactionDetails.transactionMembers.map((friend, index) => (
                   <li key={index} className="mb-4">
-                    {friend} will pay {(transactionDetails.amount/(transactionDetails.transactionMembers.length+1)).toFixed(2)} to You
+                    {friend.name} will pay {(transactionDetails.amount/(transactionDetails.transactionMembers.length+1)).toFixed(2)} to You
                     <button
                       onClick={markAsPaid}
                       className="ml-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 focus:outline-none focus:border-green-700 focus:ring focus:ring-green-200"
@@ -45,7 +45,7 @@ const FriendsModal = ({ onClose, transactionId }) => {
             ) : (
               <div className="mb-4">
                 <p>
-                  You will pay ${(transactionDetails.amount/(transactionDetails.transactionMembers.length+1)).toFixed(2)} to {transactionDetails.transactionFrom}
+                  You will pay ${(transactionDetails.amount/(transactionDetails.transactionMembers.length+1)).toFixed(2)} to {transactionDetails.transactionFrom.name}
                 </p>
                 
               </div>

@@ -1,7 +1,7 @@
 // GroupDetailPage.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import FriendsModal from './FriendsModel'; 
+import FriendsModal from './FriendsModel';
 
 const GroupExpense = () => {
   const data = [
@@ -72,7 +72,7 @@ const GroupExpense = () => {
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [allExpenses, setAllExpenses] = useState([]);
   const [isFriendsModalOpen, setIsFriendsModalOpen] = useState(false);
-  const [transactionId,setTransactionId]=useState();
+  const [transactionId, setTransactionId] = useState();
 
   // Function to open the FriendsModal
   const openFriendsModal = (id) => {
@@ -89,7 +89,7 @@ const GroupExpense = () => {
     try {
       const newTransaction = {
         groupId,
-        transactionFrom: `${admin.name}-${admin.phone}`,
+        transactionFrom:{name:admin.name,phone:admin.phone},
         amount,
         expenseDetails,
         transactionMembers: selectedMembers,
@@ -110,7 +110,7 @@ const GroupExpense = () => {
   useEffect(() => {
     const usersGroupTransaction = {
       groupId,
-      userId: `${admin.name}-${admin.phone}`,
+      userId: admin.phone,
     };
 
     axios.post("http://localhost:5000/user/getusersgrouptransaction", usersGroupTransaction)
@@ -120,7 +120,7 @@ const GroupExpense = () => {
 
   return (
     <div className="container mx-auto p-4 flex">
-        <div className="w-1/2 pr-8 overflow-y-auto max-h-screen mr-5">
+      <div className="w-1/2 pr-8 overflow-y-auto max-h-screen mr-5">
         {allExpenses.length > 0 && (
           <>
             <h1 className="text-3xl font-bold mb-4">{group.name}</h1>
@@ -139,7 +139,7 @@ const GroupExpense = () => {
                       <td className="py-2 px-4 border-b">{member.expenseDetails}</td>
                       <td className="py-2 px-4 border-b">{member.amount}</td>
                       <td className="py-2 px-4 border-b">
-                        <button onClick={()=>{openFriendsModal(member._id)}} className="bg-blue-500 text-white px-2 py-1 rounded">Click Here</button>
+                        <button onClick={() => { openFriendsModal(member._id) }} className="bg-blue-500 text-white px-2 py-1 rounded">Click Here</button>
                       </td>
                     </tr>
                   ))}
@@ -176,23 +176,45 @@ const GroupExpense = () => {
             <label className="block text-sm font-bold mb-2">Select Members</label>
             {group &&
               group.members.map((member) => (
+                // <div key={member.phone} className="flex items-center">
+                //   <input
+                //     type="checkbox"
+                //     id={member.phone}
+                //     value={`${member.name}-${member.phone}`}
+                //     checked={selectedMembers.includes(`${member.name}-${member.phone}`)}
+                //     onChange={() => {
+                //       const memberId = `${member.name}-${member.phone}`;
+                //       const updatedMembers = selectedMembers.includes(memberId)
+                //         ? selectedMembers.filter((member) => member !== memberId)
+                //         : [...selectedMembers, memberId];
+                //       setSelectedMembers(updatedMembers);
+                //     }}
+                //     className="mr-2"
+                //   />
+                //   <label htmlFor={member.phone}>{member.name}-{member.phone}</label>
+                // </div>
                 <div key={member.phone} className="flex items-center">
                   <input
                     type="checkbox"
                     id={member.phone}
                     value={`${member.name}-${member.phone}`}
-                    checked={selectedMembers.includes(`${member.name}-${member.phone}`)}
+                    checked={selectedMembers.some((m) => m.phone === member.phone)}
                     onChange={() => {
-                      const memberId = `${member.name}-${member.phone}`;
-                      const updatedMembers = selectedMembers.includes(memberId)
-                        ? selectedMembers.filter((member) => member !== memberId)
-                        : [...selectedMembers, memberId];
-                      setSelectedMembers(updatedMembers);
+                      const isSelected = selectedMembers.some((m) => m.phone === member.phone);
+
+                      if (!isSelected) {
+                        const updatedMembers = [...selectedMembers, { name: member.name, phone: member.phone, ispaid: false }];
+                        setSelectedMembers(updatedMembers);
+                      } else {
+                        const updatedMembers = selectedMembers.filter((m) => m.phone !== member.phone);
+                        setSelectedMembers(updatedMembers);
+                      }
                     }}
                     className="mr-2"
                   />
                   <label htmlFor={member.phone}>{member.name}-{member.phone}</label>
                 </div>
+
               ))}
           </div>
           <button type="button" onClick={handleSplitAmount} className="bg-blue-500 text-white p-2">

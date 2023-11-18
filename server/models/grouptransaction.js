@@ -5,7 +5,7 @@ const groupTransactionSchema=new mongoose.Schema({
         required:true
     },
    transactionFrom:{
-    type:String,
+    type:Object,
     required:true
 },
 amount:{
