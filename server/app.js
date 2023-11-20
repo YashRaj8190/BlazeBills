@@ -13,6 +13,7 @@ const commentrouter=require('./routers/commentrouter');
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(express.static("public/upload"));
 const port=5000;
 database();
 app.use('/',authrouter);
