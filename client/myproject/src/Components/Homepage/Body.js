@@ -6,7 +6,7 @@ function Body() {
   return (
     <div className=" dark:bg-slate-900 dark:text-white">  
       <div>
-      <main className="main-body flex mt-16 h-screen">
+      <main className="main-body flex flex-col-reverse lg:flex-row mt-16 lg:h-screen">
       <div className="main-text flex-1 p-8 items-center mt-20 mb-20">
       <h1 className="text-5xl font-bold ml-4 mt-20 mb-10 text-center">TRACK YOUR EXPENSES</h1>
         <p className="text-lg mt-8 ml-4 mb-4">
@@ -25,7 +25,7 @@ function Body() {
       <div/>
     </div>
 
-    <div className="grid grid-cols-2 grid-rows-3 gap-5 mb-20 ml-7 mr-7">
+    <div className="grid lg:grid-cols-2 lg:grid-rows-3 gap-5 mb-20 ml-7 mr-7 grid-cols-1 grid-rows-6">
 
 <div className="border h-50 flex justify-center items-center gap-5 bg-cover bg-center">
   <p><Card 

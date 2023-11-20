@@ -17,7 +17,7 @@ const Transaction = () => {
     }, [setTransaction]);
 
     return (  
-        <div className="dark:bg-slate-800 dark:text-white h-screen">
+        <div className="dark:bg-slate-800 dark:text-white h-screen overflow-x-auto">
             <h2 className="text-2xl text-center font-semibold dark:text-white py-5">Transaction History</h2>
       <table class="min-w-full border border-gray-300 divide-y divide-gray-300">
     <thead>
