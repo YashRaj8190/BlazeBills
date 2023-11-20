@@ -1,5 +1,6 @@
 import React from 'react' ;
 import { useEffect,useState } from 'react';
+import  {Sun,SunMoon} from 'lucide-react';
 
 function Darkmode() {
     const [theme,setTheme] = useState(null) ;
@@ -29,7 +30,7 @@ function Darkmode() {
     <>
     <div>
         <button className="text-white px-4 py-2 rounded-md hover:bg-slate-800 hover:text-yellow-400" onClick={handleThemeSwitch}>
-           {(theme === 'dark') ? <h6>Light Mode</h6> : <h6>Dark Mode</h6> }</button>
+           {(theme === 'dark') ? <h6><Sun /></h6> : <h6><SunMoon/></h6> }</button>
     </div>
     </>
   )

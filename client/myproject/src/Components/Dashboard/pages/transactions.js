@@ -122,7 +122,7 @@ const Transaction = () => {
     };
 
     return (
-        <div className="dark:bg-slate-800 dark:text-white h-screen">
+        <div className="dark:bg-slate-800 dark:text-white h-screen overflow-x-auto">
 
             <h2 className="text-2xl text-center font-semibold dark:text-white py-5">Transaction History</h2>
             <div className="flex justify-center p-4 space-x-4">
