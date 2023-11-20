@@ -18,6 +18,7 @@ const GroupExpense = () => {
   const [allExpenses, setAllExpenses] = useState([]);
   const [isFriendsModalOpen, setIsFriendsModalOpen] = useState(false);
   const [transactionId, setTransactionId] = useState();
+  const [groupMember,setGroupMember]=useState([]);
 
   // Function to open the FriendsModal
   const openFriendsModal = (id) => {
@@ -34,7 +35,7 @@ const GroupExpense = () => {
     try {
       const newTransaction = {
         groupId,
-        transactionFrom: { name: admin.name, phone: admin.phone },
+        transactionFrom: { name: admin.name, phone: admin.phone,ispaid:true},
         amount,
         expenseDetails,
         transactionMembers: selectedMembers,
@@ -66,11 +67,42 @@ const GroupExpense = () => {
   useEffect(() => {
     axios.post("http://localhost:5000/user/getsinglegroup", { groupId })
       .then((res) => {
-        console.log(res.data[0]);
+        const newGroup = res.data[0];
         setGroup(res.data[0]);
+        if (newGroup) {
+          if (admin.phone === newGroup.admin.phone) {
+            newGroup.members.forEach((member) => {
+              setGroupMember((prevGroupMember) => {
+                if (!prevGroupMember.some((existingMember) => existingMember.phone === member.phone)) {
+                  return [...prevGroupMember, member];
+                }
+                return prevGroupMember;
+              });
+            });
+          } else {
+            console.log("hello", newGroup.admin);
+            setGroupMember((prevGroupMember) => {
+              if (!prevGroupMember.some((existingMember) => existingMember.phone === newGroup.admin.phone)) {
+                return [...prevGroupMember, newGroup.admin];
+              }
+              return prevGroupMember;
+            });
+            newGroup.members.forEach((member) => {
+              if (member.phone !== admin.phone) {
+                setGroupMember((prevGroupMember) => {
+                  if (!prevGroupMember.some((existingMember) => existingMember.phone === member.phone)) {
+                    return [...prevGroupMember, member];
+                  }
+                  return prevGroupMember;
+                });
+              }
+            });
+          }
+        }
       })
       .catch((err) => console.log("Something went wrong", err.message));
   }, [groupId]);
+  
 
   return (
     <div className="container mx-auto p-4 flex">
@@ -128,8 +160,9 @@ const GroupExpense = () => {
           </div>
           <div className="mb-4">
             <label className="block text-sm font-bold mb-2">Select Members</label>
-            {group &&group.members.length>0&&
-              group.members.map((member) => (
+            {groupMember.length>0&&
+              groupMember.map((member) => (
+                
                 <div key={member.phone} className="flex items-center">
                   <input
                     type="checkbox"
@@ -151,6 +184,8 @@ const GroupExpense = () => {
                   />
                   <label htmlFor={member.phone}>{member.name}-{member.phone}</label>
                 </div>
+                  
+              
 
               ))}
           </div>

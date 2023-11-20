@@ -80,7 +80,7 @@ const Transaction = () => {
     ];
 
     let data=[];  
-    if(isfiltredDate){
+    if(!isfiltredDate){
      data=  transaction.map(trans => ({
         date: new Date(trans.date).toLocaleString(),
         transactionType: trans.transactionType,
@@ -97,6 +97,11 @@ const Transaction = () => {
             description: trans.description,
             amount: trans.amount,
         }));
+    }
+    const removehandleFilter=()=>{
+        setIsFilteredDate(false);
+        setStartDate("");
+        setEndDate("");
     }
 
     return (
@@ -126,13 +131,20 @@ const Transaction = () => {
     />
   </div>
 
+{!isfiltredDate?
   <button
     onClick={handleFilter}
     style={{height:'40px',marginTop:'30px'}}
     className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200"
-  >
-    Apply Filter
+  >Filter
   </button>
+  :<button
+  onClick={removehandleFilter}
+  style={{height:'40px',marginTop:'30px'}}
+  className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200"
+>
+    Remove Filter
+</button>}
 </div>
 
 
