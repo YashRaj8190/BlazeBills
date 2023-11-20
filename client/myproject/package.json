@@ -7,12 +7,20 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.0",
+<<<<<<< HEAD
     "lucide-react": "^0.292.0",
+=======
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
+>>>>>>> 400d0dbec81467d48045990fa21bbe1615d23968
     "react": "^18.2.0",
+    "react-csv": "^2.2.2",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.18.0",
     "react-scripts": "5.0.1",
+    "react-to-print": "^2.14.15",
     "recharts": "^2.9.3",
     "web-vitals": "^2.1.4"
   },

@@ -8,6 +8,7 @@ const User=require('./models/UserSchema');
 const transactionrouter=require('./routers/transactionrouter');
 const grouptransactionrouter=require('./routers/grouptransactionrouter');
 const grouprouter=require('./routers/groupRouter');
+const commentrouter=require('./routers/commentrouter');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -18,6 +19,7 @@ app.use('/',authrouter);
 app.use('/',transactionrouter);
 app.use('/',grouptransactionrouter);
 app.use('/',grouprouter);
+app.use('/',commentrouter);
 
   
   app.listen(port, () => {
