@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { CSVLink } from 'react-csv';
+import { useReactToPrint } from 'react-to-print';
 
 const Transaction = () => {
     const [transaction, setTransaction] = useState([]);
@@ -12,7 +13,15 @@ const Transaction = () => {
     const dropdownRef = useRef(null);
     const userString = localStorage.getItem("user");
     const userObject = JSON.parse(userString);
-
+    
+        const componentRef = useRef();
+      
+        const handlePrint = useReactToPrint({
+          content: () => componentRef.current,
+        });
+        
+      
+    
     useEffect(() => {
         axios.post('http://localhost:5000/user/getalltransaction', userObject)
             .then(response => {
@@ -167,13 +176,14 @@ const Transaction = () => {
                         >
                             Export to CSV
                         </CSVLink>
+                        <button onClick={handlePrint}>Generate PDF</button>
                     </div>
                     
                     )}
                 </div>
             </div>
 
-            <div>
+            <div ref={componentRef}>
                 <table className="min-w-full border border-gray-300 divide-y divide-gray-300">
                     <thead>
                         <tr>
