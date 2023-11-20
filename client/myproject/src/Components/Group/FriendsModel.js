@@ -59,7 +59,6 @@ const FriendsModal = ({ onClose, transactionId }) => {
       .then(response => {
         // Update local state with the new comment from the backend
         console.log("commented successfully",response.data);
-        setComments([...comments,newComment]);
         setNewComment('');
       })
       .catch(error => {
