@@ -105,27 +105,30 @@ const GroupExpense = () => {
   
 
   return (
-    <div className="container mx-auto p-4 flex">
-      <div className="w-1/2 pr-8 overflow-y-auto max-h-screen mr-5">
+    <div className='dark:text-white dark:bg-gray-800'>
+    <h1 className="text-center text-6xl font-serif pt-10">Split money with your group !!!</h1>
+    <div className="container px-2 flex mt-10 h-[70vh] w-full dark:text-white dark:bg-slate-800 ">
+    
+      <div className="w-1/2 order-2 px-5 dark:text-white dark:bg-slate-800">
         {group && allExpenses.length > 0 && (
           <>
-            <h1 className="text-3xl font-bold mb-4 text-center">{group.groupName}</h1>
-            <div className="mb-4">
-              <table className="min-w-full border border-gray-300">
-                <thead>
+            <h1 className="text-4xl font-semibold mb-4 text-center font-serif">{group.groupName}</h1>
+            <div className="overflow-y-scroll h-80 ">
+              <table className="min-w-full ">
+                <thead className="bg-white top-0 dark:text-white dark:bg-slate-800">
                   <tr>
-                    <th className="py-2 px-4 border-b">Expense Details</th>
-                    <th className="py-2 px-4 border-b">Amount</th>
-                    <th className="py-2 px-4 border-b">Settlement</th>
+                    <th className="py-5 px-4 border-b">Expense Details</th>
+                    <th className="py-5 px-4 border-b">Amount</th>
+                    <th className="py-5 px-4 border-b">Settlement</th>
                   </tr>
                 </thead>
                 <tbody>
                   {allExpenses.map((member, index) => (
-                    <tr key={index} className="hover:bg-gray-100">
-                      <td className="py-2 px-4 border-b">{member.expenseDetails}</td>
+                    <tr key={index} className="hover:bg-gray-600 hover:text-white">
+                      <td className="py-2 px-4 border-b ">{member.expenseDetails}</td>
                       <td className="py-2 px-4 border-b">{member.amount}</td>
                       <td className="py-2 px-4 border-b">
-                        <button onClick={() => { openFriendsModal(member._id) }} className="bg-blue-500 text-white px-2 py-1 rounded">Click Here</button>
+                        <button onClick={() => { openFriendsModal(member._id) }} className="bg-blue-800 text-white px-2 py-1 rounded-full justify-center">Click Here</button>
                       </td>
                     </tr>
                   ))}
@@ -136,7 +139,7 @@ const GroupExpense = () => {
         )}
       </div>
 
-      <div className="w-1/2 pr-8 overflow-y-auto max-h-screen">
+      <div className="w-1/2 p-8 overflow-y-auto max-h-screen">
         <h1 className="text-3xl font-bold mb-2">Split Amount</h1>
         <form>
           <div className="mb-4">
@@ -146,7 +149,7 @@ const GroupExpense = () => {
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="Enter amount"
-              className="border p-2 w-full"
+              className="border p-2 w-full dark:text-white dark:bg-slate-800"
             />
           </div>
           <div className="mb-4">
@@ -155,7 +158,7 @@ const GroupExpense = () => {
               value={expenseDetails}
               onChange={(e) => setExpenseDetails(e.target.value)}
               placeholder="Enter expense details"
-              className="border p-2 w-full"
+              className="border p-2 w-full dark:text-white dark:bg-slate-800"
             />
           </div>
           <div className="mb-4">
@@ -180,7 +183,7 @@ const GroupExpense = () => {
                         setSelectedMembers(updatedMembers);
                       }
                     }}
-                    className="mr-2"
+                    className="mr-2 "
                   />
                   <label htmlFor={member.phone}>{member.name}-{member.phone}</label>
                 </div>
@@ -189,7 +192,7 @@ const GroupExpense = () => {
 
               ))}
           </div>
-          <button type="button" onClick={handleSplitAmount} className="bg-blue-500 text-white p-2">
+          <button type="button" onClick={handleSplitAmount} className="bg-blue-600 text-white p-2 rounded-lg font-bold hover:bg-blue-800 hover:dark:bg-white hover:dark:text-black">
             Split Amount
           </button>
         </form>
@@ -197,6 +200,7 @@ const GroupExpense = () => {
       {isFriendsModalOpen && (
         <FriendsModal onClose={closeFriendsModal} transactionId={transactionId} />
       )}
+    </div>
     </div>
   );
 };

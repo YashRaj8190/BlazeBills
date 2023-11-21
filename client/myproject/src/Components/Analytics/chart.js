@@ -72,8 +72,8 @@ function Chart(){
                 <div className="flex justify-center mt-15  dark:bg-slate-900 dark:text-white">
             <ResponsiveContainer width="80%" height={380}>
                 <BarChart data={data} >
-                <XAxis dataKey="date" tick={{ fontSize: 14 , fontWeight: 'bold' , fill: 'black'  }}/>
-                <YAxis tick={{ fontSize: 14 , fontWeight: 'bold' , fill: 'black' }}/>
+                <XAxis dataKey="date" tick={{ fontSize: 14 , fontWeight: 'bold' , fill: 'orange'  }}/>
+                <YAxis tick={{ fontSize: 14 , fontWeight: 'bold' , fill: 'orange' }}/>
                 <Tooltip />
                 <Legend />
                 <Bar dataKey="expenses" fill="#7E354D"  stroke="#3D0C02" strokeWidth={2} name = {currentView} />

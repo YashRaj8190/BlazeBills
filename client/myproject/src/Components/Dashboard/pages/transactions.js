@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { CSVLink } from 'react-csv';
 import { useReactToPrint } from 'react-to-print';
+import { Download } from "lucide-react";
 
 const Transaction = () => {
     const [transaction, setTransaction] = useState([]);
@@ -114,29 +115,55 @@ const Transaction = () => {
     }
 
     return (
-        <div className="dark:bg-slate-800 dark:text-white h-screen overflow-x-auto">
+        <div className="dark:bg-slate-800 dark:text-white h-[82vh] overflow-x-auto">
 
-            <h2 className="text-2xl text-center font-semibold dark:text-white py-5">Transaction History</h2>
-            <div className="flex justify-center p-4 space-x-4">
-  <div className="flex flex-col items-center">
-    <label htmlFor="startDate" className="text-gray-600">Start Date</label>
+            <h2 className="text-5xl text-center font-bold dark:text-white py-5 font-serif">Transaction History</h2>
+            <div className="flex justify-center p-4 space-x-4 gap-4">
+            <div className="flex order-3 items-end">
+                <div className="relative mr-4"  ref={dropdownRef}>
+                    <button
+                        onClick={() => setDropdownOpen(!isDropdownOpen)}
+                        className=" text-white bg-amber-700 px-4 py-2 rounded-lg hover:bg-amber-800 flex gap-2 "
+                    >
+                       <Download/> Download Report
+                    </button>
+                    {isDropdownOpen && (
+                        <div className="absolute w-40 bg-amber-300 border rounded shadow-lg flex-col">
+                        <CSVLink
+                            data={data}
+                            headers={headers}
+                            filename="expense_report.csv"
+                            className="w-full px-7 py-5 text-white-800"
+                            onClick={closeDropdown}
+                        >
+                            Export to CSV
+                        </CSVLink>
+                        <button className="w-full px-4 py-2 text-white-800" onClick={handlePrint}>Generate PDF</button>
+                    </div>
+                    
+                    )}
+                </div>
+            </div>
+
+  <div className="flex flex-col items-center dark:text-white dark:bg-slate-800">
+    <label htmlFor="startDate" className="text-gray-600 dark:text-white dark:bg-slate-800">Start Date</label>
     <input
       id="startDate"
       type="date"
       value={startDate}
       onChange={(e) => setStartDate(e.target.value)}
-      className="border p-2 mt-1"
+      className="border p-2 mt-1 dark:text-white dark:bg-slate-800"
     />
   </div>
   
   <div className="flex flex-col items-center">
-    <label htmlFor="endDate" className="text-gray-600">End Date</label>
+    <label htmlFor="endDate" className="text-gray-600 dark:text-white dark:bg-slate-800">End Date</label>
     <input
       id="endDate"
       type="date"
       value={endDate}
       onChange={(e) => setEndDate(e.target.value)}
-      className="border p-2 mt-1"
+      className="border p-2 mt-1 dark:text-white dark:bg-slate-800"
     />
   </div>
 
@@ -157,35 +184,10 @@ const Transaction = () => {
 </div>
 
 
-            <div className="flex justify-end mb-4">
-                <div className="relative inline-block mr-4" ref={dropdownRef}>
-                    <button
-                        onClick={() => setDropdownOpen(!isDropdownOpen)}
-                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 focus:outline-none focus:border-green-700 focus:ring focus:ring-green-200"
-                    >
-                        Export
-                    </button>
-                    {isDropdownOpen && (
-                        <div className="absolute right-0 mt-2 w-40 bg-gray-500 border rounded shadow-lg">
-                        <CSVLink
-                            data={data}
-                            headers={headers}
-                            filename="expense_report.csv"
-                            className="block w-full text-left px-4 py-2 text-sm text-white-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition duration-300"
-                            onClick={closeDropdown}
-                        >
-                            Export to CSV
-                        </CSVLink>
-                        <button onClick={handlePrint}>Generate PDF</button>
-                    </div>
-                    
-                    )}
-                </div>
-            </div>
-
-            <div ref={componentRef}>
-                <table className="min-w-full border border-gray-300 divide-y divide-gray-300">
-                    <thead>
+            
+            <div className="mt-10 overflow-y-scroll h-80 px-2" ref={componentRef}>
+                <table className="min-w-full ">
+                    <thead className="bg-white sticky top-0 ">
                         <tr>
                             <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-800 dark:text-yellow-500">Transaction Date</th>
                             <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-800 dark:text-yellow-500">Transaction Type</th>
