@@ -40,8 +40,8 @@ const FriendsModal = ({ onClose, transactionId }) => {
 
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-75">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
+    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-75 ">
+      <div className="bg-white p-8 rounded-lg shadow-lg dark:bg-slate-800 dark:text-white">
         <h2 className="text-3xl font-bold mb-4">{transactionDetails && transactionDetails.expenseDetails}</h2>
         {transactionDetails && (
           <div>
@@ -78,7 +78,7 @@ const FriendsModal = ({ onClose, transactionId }) => {
         )}
         <button
           onClick={onClose}
-          className="mt-6 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200"
+          className="mt-6 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 "
         >
           Close
         </button>

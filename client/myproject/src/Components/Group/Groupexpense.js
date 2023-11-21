@@ -73,13 +73,13 @@ const GroupExpense = () => {
   }, [groupId]);
 
   return (
-    <div className="container mx-auto p-4 flex">
-      <div className="w-1/2 pr-8 overflow-y-auto max-h-screen mr-5">
+    <div className="container mx-auto p-4 flex dark:bg-slate-800 dark:text-white min-h-screen">
+      <div className="w-1/2 pr-8 overflow-y-auto max-h-screen mr-5 ">
         {group && allExpenses.length > 0 && (
           <>
             <h1 className="text-3xl font-bold mb-4 text-center">{group.groupName}</h1>
             <div className="mb-4">
-              <table className="min-w-full border border-gray-300">
+              <table className="min-w-full border border-gray-300 dark:border-white ">
                 <thead>
                   <tr>
                     <th className="py-2 px-4 border-b">Expense Details</th>
