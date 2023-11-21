@@ -30,7 +30,7 @@ const Navbar2 = () => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setVisibility(false);
     }
-    if (navbar.current && !navbar.current.contains(event.target)) {
+    else if (navbar.current && !navbar.current.contains(event.target)) {
       setNav(false); 
     }
   };

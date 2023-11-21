@@ -4,7 +4,7 @@ const Transactiondetails = require('../models/transactionSchema');
 class Transactioncontroller {
   static addTransactiondetails = async (req, res) => {
     try {
-      console.log(req.body);
+      //console.log(req.body);
       const user_id = req.params.user_id; 
      const {transactionType,description,category,amount}=req.body;
      let newdata=
@@ -114,12 +114,12 @@ class Transactioncontroller {
     }
   }
   static getAllTransactiondetails=async(req,res)=>{
-    console.log(req.body);
+    //console.log(req.body);
     try{
       
       const transactions=await Transactiondetails.find({user_id:req.body._id}).sort({date:-1});
         res.status(200).json(transactions);
-        console.log(transactions);
+        //console.log(transactions);
     }
     catch(err){
       res.status(501).json({message:err.message});
