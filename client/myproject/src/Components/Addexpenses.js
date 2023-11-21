@@ -43,7 +43,7 @@ function TransactionForm() {
 
   return (
     <div 
-     style={{color:"black",opacity:"1"}} className="  h-screen flex items-center justify-center bg-gradient-to-r from-blue-400 to-purple-500 "
+     style={{color:"black",opacity:"1"}} className="  h-[82vh] flex items-center justify-center bg-gradient-to-r from-blue-400 to-purple-500 "
     >
       <form
         onSubmit={handleSubmit}

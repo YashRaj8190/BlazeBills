@@ -30,16 +30,23 @@ const AllGroups = () => {
   }, [isDataFetched]);
 
   return (
-    <div className="min-h-screen dark:bg-slate-800 dark:text-white">
+    <div className="min-h-[82vh] dark:bg-slate-800 dark:text-white">
       <h2 className="text-3xl font-bold py-5 text-center">All Groups</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-10 gap-y-10">
         {groups.map((group) => (
           <Link to={`/dashboard/addgroupexpense/${group._id}`}>
-          <div key={group._id} className="bg-violet-800 text-white rounded-lg shadow-md flex items-center justify-center h-40 w-3/4">
-            <h3 className="text-center text-xl font-semibold">{group.groupName}</h3>
-            {group.admin.phone===user.phone? "created by: You":<h3 className="text-center text-xl font-semibold">created by: {group.admin.name} phone:{group.admin.phone}</h3>}
-            
-          </div> 
+          <div key={group._id} className="bg-violet-800 text-white rounded-lg shadow-md flex flex-col items-center justify-center h-40 w-3/4">
+            <h3 className="text-center text-4xl font-semibold">{group.groupName}</h3>
+            <div className="mt-2">
+              {group.admin.phone === user.phone ? (
+                <p className="text-center text-xl font-semibold">Created by: You</p>
+              ) : (
+                <p className="text-center text-xl font-semibold">
+                  Created by: {group.admin.name} phone: {group.admin.phone}
+                </p>
+              )}
+            </div>
+            </div>
           </Link>
         ))}
       </div>

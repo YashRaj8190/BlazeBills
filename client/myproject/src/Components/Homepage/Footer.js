@@ -2,10 +2,10 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="relative w-full bottom-0">
-      {/* <div className="bg-gray-800 text-white py-4 w-full bottom-0 left-0 right-0 text-center">
+    <div className="fixed w-full bottom-0">
+      <div className="bg-gray-800 text-white py-4 w-full bottom-0 left-0 right-0 text-center dark:bg-black">
         <h1 className="text-xl">&copy; Copyright 2023</h1>
-      </div> */}
+      </div>
     </div>
   );
 }

@@ -10,15 +10,10 @@ function Chart(){
     };
     const [view, setView] = useState('7');
     const [data,setdata]=useState([]);
-
-    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
     
-    const axisLineColor = isDarkMode ? 'white' : 'black';
-    const legendTextColor = isDarkMode ? 'white' : 'black';
    
     
-    const handelchange=async(e)=>{
+    const handelechange=async(e)=>{
         setView(e.target.value);
     }
     useEffect(() => {
@@ -54,7 +49,7 @@ function Chart(){
     return (
         <div className= "p-8 h-full  dark:bg-slate-900 dark:text-white">
             
-            <div className="flex justify-center"><h1 className="font-extrabold text-6xl mb-4 text-gray-600 font-serif dark:text-white">Expenses Analytics</h1></div>
+            <div className="flex justify-center"><h1 className="font-extrabold text-6xl mb-4 text-gray-800 font-serif dark:text-white">Expenses Analytics</h1></div>
 
             {/* Choose View */}
             <div className="mb-8 mt-5 flex items-center justify-center " >
@@ -62,7 +57,7 @@ function Chart(){
                 <select
                     className="w-40 h-10 bg-blue-200 dark:bg-black border border-blue-800 rounded-md py-2 px-4 focus:outline-none focus:border-blue-300"
                     value={view}
-                    onChange={handelchange}
+                    onChange={handelechange}
                 >   
                     <option value="7">Weekly</option>
                     <option value="30">Monthly</option>
@@ -76,12 +71,12 @@ function Chart(){
                 </div> :
                 <div className="flex justify-center mt-15  dark:bg-slate-900 dark:text-white">
             <ResponsiveContainer width="80%" height={380}>
-            <BarChart data={data}>
-                <XAxis dataKey="date" tick={{ fontSize: 14, fontWeight: 'bold', fill: axisLineColor }} />
-                <YAxis tick={{ fontSize: 14, fontWeight: 'bold', fill: axisLineColor }} />
+                <BarChart data={data} >
+                <XAxis dataKey="date" tick={{ fontSize: 14 , fontWeight: 'bold' , fill: 'orange'  }}/>
+                <YAxis tick={{ fontSize: 14 , fontWeight: 'bold' , fill: 'orange' }}/>
                 <Tooltip />
-                <Legend wrapperStyle={{ color: legendTextColor }} />
-                <Bar dataKey="expenses" fill="#FFFF00" stroke="#3D0C02" strokeWidth={2} name={currentView} />
+                <Legend />
+                <Bar dataKey="expenses" fill="#7E354D"  stroke="#3D0C02" strokeWidth={2} name = {currentView} />
                 </BarChart>
             </ResponsiveContainer> </div>}
             </div>
