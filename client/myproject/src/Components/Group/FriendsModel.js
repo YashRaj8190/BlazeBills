@@ -92,7 +92,7 @@ const FriendsModal = ({ onClose, transactionId }) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-75">
-      <div className="bg-white p-8 rounded-lg shadow-lg flex w-96">
+      <div className="bg-white p-8 rounded-lg shadow-lg flex w-4/6 dark:text-white dark:bg-slate-800">
         <div className="w-1/2 pr-4">
           <h2 className="text-3xl font-bold mb-4">{transactionDetails && transactionDetails.expenseDetails}</h2>
           {transactionDetails && (
@@ -150,14 +150,14 @@ const FriendsModal = ({ onClose, transactionId }) => {
           <div className="mt-4">
             <textarea
               rows="4"
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded dark:text-white dark:bg-slate-800"
               placeholder="Add a comment..."
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
             />
             <button
               onClick={handleCommentSubmit}
-              className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200"
+              className="mt-2 px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-800"
             >
               Submit Comment
             </button>

@@ -63,17 +63,17 @@ const GroupPage = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 flex">
+    <div className="container mx-auto p-4 flex dark:bg-slate-800 dark:text-white min-h-screen">
     <div className="w-1/2 pr-8">
         <h1 className="text-3xl font-bold mb-4">Create a Group</h1>
         <div className="mb-4">
-          <label className="block text-sm font-bold mb-2">Group Name</label>
+          <label className="block text-sm font-bold mb-2 ">Group Name</label>
           <input
             type="text"
             value={groupName}
             onChange={(e) => setGroupName(e.target.value)}
             placeholder="Enter group name"
-            className="border p-2 w-full"
+            className="border p-2 w-full dark:text-black"
           />
         </div>
        
@@ -85,14 +85,14 @@ const GroupPage = () => {
               value={memberName}
               onChange={(e) => setMemberName(e.target.value)}
               placeholder="Enter member name"
-              className="border p-2 mr-2 w-1/2"
+              className="border p-2 mr-2 w-1/2 dark:text-black"
             />
             <input
               type="text"
               value={memberPhoneNumber}
               onChange={(e) => setMemberPhoneNumber(e.target.value)}
               placeholder="Enter member phone number"
-              className="border p-2 mr-2 w-1/2"
+              className="border p-2 mr-2 w-1/2 dark:text-black"
             />
             <button onClick={addMember} className="bg-green-500 text-white p-2">
               Add Member
@@ -108,9 +108,9 @@ const GroupPage = () => {
       <div className="w-1/2" style={{ maxHeight: '100vh', overflowY: 'auto' }}>
       <h1 className="text-3xl font-bold mb-2 text-center">Group Name: <span className="text-4xl font-bold text-red-800">{groupName}</span></h1>
        <h1 className="text-3xl font-bold mb-2 text-center">Group Members</h1>
-      <table className="min-w-full bg-white border border-gray-300">
+      <table className="min-w-full bg-white border border-gray-300 dark:bg-slate-800">
         <thead>
-          <tr className="bg-gray-100">
+          <tr className="bg-gray-100 dark:text-black ">
             <th className="py-2 px-4 border-b">Name</th>
             <th className="py-2 px-4 border-b">Phone</th>
             <th className="py-2 px-4 border-b">Actions</th>

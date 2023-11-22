@@ -52,7 +52,9 @@ function TransactionForm() {
   };
 
   return (
-    <div style={{ color: "black", opacity: "1" }} className="  h-screen flex items-center justify-center bg-gradient-to-r from-blue-400 to-purple-500">
+    <div 
+     style={{color:"black",opacity:"1"}} className="  h-[82vh] flex items-center justify-center bg-gradient-to-r from-blue-400 to-purple-500 "
+    >
       <form
         onSubmit={handleSubmit}
         style={{ width: "400px" }} className="bg-opacity-20 bg-white dark:text-white dark:bg-slate-800 bg-blur-lg backdrop-filter  shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 transition-transform duration-100 ease-in-out transform hover:scale-110"

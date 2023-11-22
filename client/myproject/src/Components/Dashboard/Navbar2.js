@@ -59,9 +59,9 @@ const Navbar2 = () => {
             Groups
           </button>
           {isVisible && (
-            <div className="absolute mt-2 bg-gray-800 dark:bg-black border border-white rounded-md">
-              <Link to="/dashboard/creategroup" className="block px-4 py-1 text-white" onClick={toggleDropdown}>Create Group</Link>
-              <Link to="/dashboard/allgroups" className="block px-4 py-1 text-white" onClick={toggleDropdown}>All Groups</Link>
+            <div className="absolute flex flex-wrap bg-gray-800 dark:bg-black border border-white rounded-md">
+              <Link to="/dashboard/creategroup" className="px-3 py-1 text-white hover:text-yellow-500" onClick={toggleDropdown}>Create Group</Link>
+              <Link to="/dashboard/allgroups" className="px-3 py-1 text-white hover:text-yellow-500" onClick={toggleDropdown}>All Groups</Link>
             </div>
           )}
           
@@ -80,7 +80,7 @@ const Navbar2 = () => {
         
       </div>
       </>}
-      <div className="md:hidden text-white">
+      <div className="md:hidden text-white mr-5">
         <button onClick={toggleNav}>
            {nav ? <X/> : <Menu/>}
         </button>
@@ -94,7 +94,7 @@ const Navbar2 = () => {
             Groups
           </button>
           {isVisible && (
-            <div className="absolute mt-2 bg-gray-800 dark:bg-black border border-white rounded-md">
+            <div className="absolute mt-2 bg-gray-800 dark:bg-slate-800 border border-white rounded-md">
               <Link to="/dashboard/creategroup" className="block px-4 py-1 text-white" onClick={toggleDropdown}>Create Group</Link>
               <Link to="/dashboard/allgroups" className="block px-4 py-1 text-white" onClick={toggleDropdown}>All Groups</Link>
             </div>
