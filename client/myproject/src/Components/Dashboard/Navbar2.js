@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import Darkmode from "../darkmode";
 import {Menu,X} from "lucide-react"
+import Notification from "../notification/notifications";
+import BillForm from "../notification/addbill";
 
 const Navbar2 = () => {
   const[nav,setNav] = useState(false);
@@ -51,6 +53,7 @@ const Navbar2 = () => {
         <Link to="/dashboard/analytics" className="text-white px-3.5 py-2 text-lg" >Analytics</Link>
         <Link to="/dashboard/transactions" className="text-white px-3.5 py-2 text-lg" >Past Transactions</Link>
         <Link to="/dashboard/addexpense" className="text-white px-3.5 py-2 text-lg" >Add Expense</Link>
+       <BillForm/>
         <div className="relative" ref={dropdownRef}>
           <button className="text-white px-3.5 py-2 text-lg" onClick={toggleDropdown}>
             Groups
@@ -67,12 +70,14 @@ const Navbar2 = () => {
 
       {!nav && <><div className="flex items-center gap-2" >
       <Darkmode/>
+      <Notification/>
         <button className="bg-gray-200 text-black px-3.5 py-2 rounded-xl mr-2">
           {JSON.parse(localStorage.getItem('user')).name}
         </button>
         <button className="bg-red-500 text-white px-3.5 py-2 rounded-xl ml-2" onClick={logoutUser}>
           Logout
         </button>
+        
       </div>
       </>}
       <div className="md:hidden text-white">
