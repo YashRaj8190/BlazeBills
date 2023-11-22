@@ -14,6 +14,8 @@ import Chart from './Components/Analytics/chart';
 import GroupPage from './Components/Group/GroupCreate';
 import GroupExpense from './Components/Group/Groupexpense';
 import AllGroups from './Components/Dashboard/AllGroups';
+import EmailVerificationPage from './Components/emailverificationpage';
+import ResetPassword from './Components/resetpasswordpage';
 function App(){
   return (<>
     <div>
@@ -25,6 +27,8 @@ function App(){
       />
       <Route path="/signup" Component={Signup} />
       <Route path="/login" Component={Login} />
+      <Route path="/emailverificationpage" Component={EmailVerificationPage}/>
+      <Route path="/resetpassword" Component={ResetPassword}/>
       <Route path="/addexpense" 
       element={
         <Protectedroute>
