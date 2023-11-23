@@ -8,5 +8,6 @@ router.post('/user/getusersgroups', groupController.getUsersGroup);
 // New group creation
 router.post('/user/creategroup', groupController.createGroup);
 router.post('/user/getsinglegroup', groupController.getSingleGroup);
+router.post('/user/check-user', groupController.checkUser);
 
 module.exports = router;

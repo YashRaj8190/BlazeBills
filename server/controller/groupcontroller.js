@@ -1,4 +1,5 @@
 const Group = require('../models/groupSchema');
+const User = require('../models/UserSchema');
 class groupController {
     static createGroup = async (req, res) => {
         try {
@@ -46,6 +47,19 @@ class groupController {
             console.error(error);
             res.status(500).json({ message: 'Some error occurred' });
           } 
+    }
+    static checkUser = async (req, res) => {
+        const { phone } = req.body;
+      
+        try {
+          // Check if a user with the provided phone number exists
+          const user = await User.findOne({ phone });
+          // Return a response indicating whether the user exists
+          res.status(200).json({ exists: !!user });
+        } catch (error) {
+          console.error('Error checking user existence:', error);
+          res.status(500).json({ error: 'Internal Server Error' });
+        }
     }
 
 }

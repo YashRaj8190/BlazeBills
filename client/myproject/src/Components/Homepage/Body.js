@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Body() {
   return (
-    <div className=" dark:bg-slate-900 dark:text-white">  
+    <div className=" dark:bg-slate-900 dark:text-white ">  
       <div>
       <main className="main-body flex flex-col-reverse lg:flex-row mt-16 lg:h-screen">
       <div className="main-text flex-1 p-8 items-center mt-20 mb-20">
@@ -25,7 +25,7 @@ function Body() {
       <div/>
     </div>
 
-    <div className="grid lg:grid-cols-2 lg:grid-rows-3 gap-5 mb-20 ml-7 mr-7 grid-cols-1 grid-rows-6">
+    <div className="grid lg:grid-cols-2 lg:grid-rows-3 gap-5 ml-7 mr-7 pb-20 grid-cols-1 grid-rows-6">
 
 <div className="border h-50 flex justify-center items-center gap-5 bg-cover bg-center">
   <p><Card 

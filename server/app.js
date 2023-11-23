@@ -9,6 +9,7 @@ const transactionrouter=require('./routers/transactionrouter');
 const grouptransactionrouter=require('./routers/grouptransactionrouter');
 const grouprouter=require('./routers/groupRouter');
 const commentrouter=require('./routers/commentrouter');
+const sendEmailRouter=require('./routers/sendEmailRouter');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -20,6 +21,7 @@ app.use('/',transactionrouter);
 app.use('/',grouptransactionrouter);
 app.use('/',grouprouter);
 app.use('/',commentrouter);
+app.use('/',sendEmailRouter);
 
   
   app.listen(port, () => {

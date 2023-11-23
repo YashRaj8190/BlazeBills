@@ -108,7 +108,7 @@ const GroupPage = () => {
       <div className="w-1/2" style={{ maxHeight: '100vh', overflowY: 'auto' }}>
       <h1 className="text-3xl font-bold mb-2 text-center">Group Name: <span className="text-4xl font-bold text-red-800">{groupName}</span></h1>
        <h1 className="text-3xl font-bold mb-2 text-center">Group Members</h1>
-      <table className="min-w-full bg-white border border-gray-300 dark:bg-slate-800">
+      <table className="min-w-full bg-white border border-gray-300 dark:bg-slate-800 text-center">
         <thead>
           <tr className="bg-gray-100 dark:text-black ">
             <th className="py-2 px-4 border-b">Name</th>
