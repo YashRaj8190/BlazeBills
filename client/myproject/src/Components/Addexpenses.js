@@ -4,41 +4,51 @@ import axios from 'axios';
 
 function TransactionForm() {
   const userString = localStorage.getItem("user");
-    const userObject = JSON.parse(userString);
-    const user_id=userObject._id;
-    
-  const navigate=useNavigate();
+  const userObject = JSON.parse(userString);
+  const user_id = userObject._id;
+
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     transactionType: '',
     description: '',
     amount: '',
     category: '',
   });
+  const [file,setFile]=useState([]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target.name === 'expensereciept') {
+      // Handle file input separately
+      setFile(e.target.files[0]);
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    try{
-      await axios.post("http://localhost:5000/user/addtransaction",{formData,user_id}).then((res)=>{
-        
+
+    try {
+      // Use FormData to handle file upload
+      const formDataWithFile = new FormData();
+      formDataWithFile.append('transactionType', formData.transactionType);
+      formDataWithFile.append('description', formData.description);
+      formDataWithFile.append('amount', formData.amount);
+      formDataWithFile.append('category', formData.category);
+      formDataWithFile.append('expensereciept', file);
+
+      await axios.post(`http://localhost:5000/user/addtransaction/${user_id}`,formDataWithFile).then((res) => {
         alert('Transaction added');
+        console.log(res.data);
         navigate("/dashboard");
-      }) 
-    }
-    catch(error){
-      if(error.response.data.message){
+      });
+    } catch (error) {
+      if (error.response.data.message) {
         alert(error.response.data.message);
-      }
-      else{
+      } else {
         alert(error.response.data);
       }
-      
     }
-    navigate("/dashboard");
   };
 
   return (
@@ -47,7 +57,7 @@ function TransactionForm() {
     >
       <form
         onSubmit={handleSubmit}
-        style={{width:"400px"}} className="bg-opacity-20 bg-white dark:text-white dark:bg-slate-800 bg-blur-lg backdrop-filter  shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 transition-transform duration-100 ease-in-out transform hover:scale-110"
+        style={{ width: "400px" }} className="bg-opacity-20 bg-white dark:text-white dark:bg-slate-800 bg-blur-lg backdrop-filter  shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 transition-transform duration-100 ease-in-out transform hover:scale-110"
       >
         <div className='m-4'><h1 className='text-4xl font-bold text-center text-gray-800 dark:text-white'>ADD EXPENSE</h1></div>
 
@@ -91,26 +101,35 @@ function TransactionForm() {
         </div>
 
         <div className="mb-4">
-  <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white " htmlFor="category">
-    Category
-  </label>
-  <select
-    name="category"
-    value={formData.category}
-    onChange={handleChange}
-    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white dark:bg-slate-800"
-  >
-    <option value="">Select a category</option>
-    <option value="groceries">Groceries</option>
-    <option value="utilities">Utilities</option>
-    <option value="transportation">Transportation</option>
-    <option value="dining">Dining</option>
-    
-  </select>
-</div>
+          <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white " htmlFor="category">
+            Category
+          </label>
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white dark:bg-slate-800"
+          >
+            <option value="">Select a category</option>
+            <option value="groceries">Groceries</option>
+            <option value="utilities">Utilities</option>
+            <option value="transportation">Transportation</option>
+            <option value="dining">Dining</option>
+          </select>
+        </div>
 
-        
-       
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white" htmlFor="expensereciept">
+            expensereciept
+          </label>
+          <input
+            type="file"
+            name="expensereciept"
+            onChange={handleChange}
+            accept="image/*"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white dark:bg-slate-800"
+          />
+        </div>
 
         <div className="text-center">
           <button
@@ -124,4 +143,5 @@ function TransactionForm() {
     </div>
   );
 }
+
 export default TransactionForm;

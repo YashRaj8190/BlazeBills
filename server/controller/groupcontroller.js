@@ -20,7 +20,7 @@ class groupController {
         }
     }
     static getUsersGroup=async(req,res)=>{
-        console.log("all",req.body);
+        //console.log("all",req.body);
         try {
             const UserPhoneNumber = req.body.userPhone; // Assuming userPhone is the variable containing the user's phone number fetched through his details
             const groups = await Group.find({ 

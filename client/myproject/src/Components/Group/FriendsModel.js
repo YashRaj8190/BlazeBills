@@ -24,24 +24,6 @@ const FriendsModal = ({ onClose, transactionId }) => {
     
    
   }, [transactionId]);
-  useEffect(() => {
-    axios.post(`http://localhost:5000/user/getcommentbytransactionid`,{transactionId})
-      .then(response => {
-        console.log(response.data);
-        setComments(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching comments:', error);
-      });
-  }, [transactionId,comments.length]);
-  
-
-  const markAsPaid = (phone) => {
-    // Add logic for marking the transaction as paid
-    setPhoneNumber(phone);
-    console.log('Mark as Paid clicked');
-  };
-
   const handleCommentSubmit = () => {
     // Check if there's a new comment before submitting
     if (!newComment) {
@@ -64,7 +46,34 @@ const FriendsModal = ({ onClose, transactionId }) => {
         console.error('Error submitting comment:', error);
         // Optionally handle the error (e.g., show an error message)
       });
+      axios.post(`http://localhost:5000/user/getcommentbytransactionid`,{transactionId})
+      .then(response => {
+        console.log(response.data);
+        setComments(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching comments:', error);
+      });
   };
+  useEffect(() => {
+    axios.post(`http://localhost:5000/user/getcommentbytransactionid`,{transactionId})
+      .then(response => {
+        console.log(response.data);
+        setComments(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching comments:', error);
+      });
+  }, [transactionId,comments.length]);
+  
+
+  const markAsPaid = (phone) => {
+    // Add logic for marking the transaction as paid
+    setPhoneNumber(phone);
+    console.log('Mark as Paid clicked');
+  };
+
+  
   
   useEffect(() => {
     if (phoneNumber) {

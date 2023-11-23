@@ -1,5 +1,16 @@
+require('dotenv').config();
 const User=require('../models/UserSchema');
 const bcrypt=require('bcryptjs');
+const nodemailer=require('nodemailer')
+const otpGenerator=require('otp-generator');
+const transporter = nodemailer.createTransport({
+    service: 'gmail', // e.g., Gmail
+    auth: {
+      user: process.env.Secret_User,
+      pass: process.env.Secret_Password,
+    },
+  });
+  let otpCache={};
 class Authcontroller{
     static userSignUp=async(req,res)=>{
         try {
@@ -53,5 +64,68 @@ class Authcontroller{
         }
     }
     };
+       static otpSender= async(req,res)=>{
+        const {email}=req.body;
+         const otp=otpGenerator.generate(6,{upperCaseAlphabets:false,specialChars:false,lowerCaseAlphabets:false});
+         const otpExpirationTime = Date.now() + 1* 60 * 1000; // 5 minutes in milliseconds
+    
+         otpCache[email] = { otp, expirationTime: otpExpirationTime };
+         res.status(200).json({message:"otp generated successfully"});
+         const mailOptions = {
+            from: 'expenseTracker@gmail.com',
+            to:email,
+            subject:"your otp code",
+            text:`Your otp code is :${otp}`,
+           
+          };
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              console.error(error);
+              res.status(500).json({ message: 'Email not sent' });
+            } else {
+              console.log('Email sent: ' + info.response);
+              res.json({ message: 'Email sent successfully' });
+            }
+          });
+      };
+      static verifyOtp=async(req,res)=>{
+        const {email,enteredOTP}=req.body;
+        
+        const storedOTPData=otpCache[email];
+       console.log(storedOTPData);
+        if(!storedOTPData){
+            return res.status(400).json({message:"otp not found"});
+        }
+        const {otp , expirationTime } = storedOTPData;
+    
+      if (Date.now() > expirationTime) {
+        delete otpCache[email];
+        return res.status(400).json({ message: "OTP has expired" });
+      }
+        if(enteredOTP===otp){
+            const updatedUser=await User.findOneAndUpdate({email:email},{$set:{isVerified:true}},{new:true});
+          
+            delete otpCache[email];
+            res.status(200).json({message:'Otp verified successfully',updatedUser});
+        }
+        else{
+            console.log(enteredOTP);
+            console.log(otp);
+            res.status(400).json({message:"otp verification failed"});
+        }
+        
+      };
+      static resetPassword=async(req,res)=>{
+        //console.log(req.body);
+        try{
+          const password=await bcrypt.hash(req.body.password,10);
+          await User.findOneAndUpdate({email:req.body.email},{$set:{password:password}});
+          res.status(200).json("password updated successfully");
+        }
+        catch(err){
+          res.status(500).json("envalid email details");
+        }
+      };
+    
 }
 module.exports= Authcontroller;

@@ -4,10 +4,16 @@ const Transactiondetails = require('../models/transactionSchema');
 class Transactioncontroller {
   static addTransactiondetails = async (req, res) => {
     try {
-      console.log(req.body);
-     const {user_id}=req.body;
-     const {transactionType,description,category,amount}=req.body.formData;
-      const newTransaction = await Transactiondetails.create({transactionType,description,category,amount,user_id});
+      //console.log(req.body);
+      const user_id = req.params.user_id; 
+     const {transactionType,description,category,amount}=req.body;
+     let newdata=
+     {transactionType,description,category,amount,user_id};
+     if(req.file){
+     const expensereciept=req.file.filename;
+     newdata={...newdata,expensereciept};
+     }
+      const newTransaction = await Transactiondetails.create(newdata);
       console.log(newTransaction);
       res.status(200).json({ message: "new Transaction is added successfully" });
     }
@@ -108,10 +114,12 @@ class Transactioncontroller {
     }
   }
   static getAllTransactiondetails=async(req,res)=>{
+    //console.log(req.body);
     try{
       
       const transactions=await Transactiondetails.find({user_id:req.body._id}).sort({date:-1});
         res.status(200).json(transactions);
+        //console.log(transactions);
     }
     catch(err){
       res.status(501).json({message:err.message});

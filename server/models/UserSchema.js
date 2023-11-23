@@ -75,6 +75,10 @@ const userSchema = new mongoose.Schema({
       message: 'Invalid email address.',
     },
   },
+  isVerified:{
+    type:Boolean,
+    default:false,
+  }
 },{timestamps:true});
 
 userSchema.pre('save',async function(next){

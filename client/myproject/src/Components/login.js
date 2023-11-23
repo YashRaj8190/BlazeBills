@@ -5,6 +5,7 @@ const Login = () => {
   const navigate=useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -13,16 +14,66 @@ const Login = () => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+  const isValidEmail = (email) => {
+    // Simple email validation, you can replace it with a more robust validation logic
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  const handleForgetPassword = async (e) => {
+    e.preventDefault();
+
+    // Check if the email field is empty
+    if (!email.trim()) {
+      setErrorMessage('Please enter your email before clicking "Forget Password?"');
+      return;
+    }
+
+    // Check if the email is valid
+    if (!isValidEmail(email)) {
+      setErrorMessage('Please enter a valid email address');
+      return;
+    }
+
+    // Clear any previous error messages
+    setErrorMessage('');
+
+    // Add logic to handle forget password functionality
+    try {
+      await axios.post("http://localhost:5000/sendotp", { email: email });
+      localStorage.setItem("email",JSON.stringify(email));
+      localStorage.setItem("isforgetpassword",JSON.stringify(true));
+      navigate("/emailverificationpage");
+      // Show success message or redirect to a password reset page
+    } catch (err) {
+      console.log(err);
+      // Handle error, show a message to the user, etc.
+    }
+  };
 
   const handleSubmit = async(e) => {
     e.preventDefault();
     try{
-      await axios.post("http://localhost:5000/user/login",{email,password}).then((res)=>{
+      const res=await axios.post("http://localhost:5000/user/login",{email,password});
         const user=res.data.userdetails;
         console.log(user);
-        localStorage.setItem("user",JSON.stringify(user));
-        navigate("/dashboard");
-      }) 
+        localStorage.setItem("email",JSON.stringify(email));
+        if(user.isVerified){
+          localStorage.setItem("user",JSON.stringify(user));
+          localStorage.removeItem('email');
+          navigate("/dashboard");
+        }
+        else{
+          try {
+            const response=await axios.post("http://localhost:5000/sendotp", { email: email });
+            localStorage.setItem("email",JSON.stringify(email));
+            console.log(response.data);
+            navigate("/emailverificationpage");
+            // Show success message or redirect to a password reset page
+          } catch (err) {
+            console.log(err);
+            // Handle error, show a message to the user, etc.
+          }
+        } 
     }
     catch(error){
       alert(error.response.data.message);
@@ -81,6 +132,20 @@ const Login = () => {
           </div>
 
         </form>
+        <div className="text-center">
+          {/* Display error message if there is one */}
+          {errorMessage && (
+            <p className="text-red-500">{errorMessage}</p>
+          )}
+
+          {/* Forget password button */}
+          <button
+            onClick={handleForgetPassword}
+            className="text-blue-500 hover:underline focus:outline-none"
+          >
+            Forget Password?
+          </button>
+        </div>
       </div>
     </div>
   );

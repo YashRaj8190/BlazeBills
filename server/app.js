@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express=require('express');
 const cors=require('cors');
 const bodyParser=require('body-parser');
@@ -9,11 +10,13 @@ const transactionrouter=require('./routers/transactionrouter');
 const grouptransactionrouter=require('./routers/grouptransactionrouter');
 const grouprouter=require('./routers/groupRouter');
 const commentrouter=require('./routers/commentrouter');
+const notificationrouter=require('./routers/notificationroute');
 const sendEmailRouter=require('./routers/sendEmailRouter');
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(express.static("public/upload"));
 const port=5000;
 database();
 app.use('/',authrouter);
@@ -21,8 +24,8 @@ app.use('/',transactionrouter);
 app.use('/',grouptransactionrouter);
 app.use('/',grouprouter);
 app.use('/',commentrouter);
+app.use('/',notificationrouter);
 app.use('/',sendEmailRouter);
-
   
   app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

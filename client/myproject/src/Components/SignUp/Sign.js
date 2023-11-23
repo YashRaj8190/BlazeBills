@@ -22,9 +22,15 @@ function Signup(){
     try{
       await axios.post("http://localhost:5000/user/signup",formData).then((res)=>{
         const user=res.data.newUser;
-        //console.log(user);
-        localStorage.setItem("user",JSON.stringify(user));
-        navigate("/dashboard");
+        console.log(user);
+        localStorage.setItem("email",JSON.stringify(user.email));
+        if(user.isVerified){
+          localStorage.setItem("user",JSON.stringify(user));
+          navigate("/dashboard");
+        }
+        else{
+          navigate("/emailverificationpage");
+        }
       }) 
     }
     catch(error){

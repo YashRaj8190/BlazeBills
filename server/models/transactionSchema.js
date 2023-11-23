@@ -21,6 +21,9 @@ const transactionSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Category is required.'],
   },
+  expensereciept:{
+    type:String,
+  },
   date: {
     type: Date,
     default: Date.now,
