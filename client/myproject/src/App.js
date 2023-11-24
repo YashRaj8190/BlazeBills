@@ -19,6 +19,7 @@ import ResetPassword from './Components/resetpasswordpage';
 function App(){
   return (<>
     <div>
+      {/* set up all routes */}
     <Routes >
       <Route path="/" 
        element={
@@ -54,6 +55,7 @@ function App(){
     </div>
   </>)
 }
+ {/* if user is verified then send him forward other wise navigate to home page */}
 export function Protectedroute(props){
   if(localStorage.getItem("user")){
     return props.children;

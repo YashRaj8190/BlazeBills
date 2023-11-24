@@ -7,6 +7,7 @@ const GroupPage = () => {
   const [memberName, setMemberName] = useState('');
   const [memberPhoneNumber, setMemberPhoneNumber] = useState('');
   const [groupMembers, setGroupMembers] = useState([]);
+  //send a request to server to create a group 
 
   const createGroup = async() => {
     if (groupName.trim() === '') {
@@ -38,7 +39,7 @@ const GroupPage = () => {
     setMemberPhoneNumber('');
     setGroupMembers([]);
   };
-
+  //validate form and if all fields are filled then submit the form
   const addMember = () => {
     if (memberName.trim() === '' || memberPhoneNumber.trim() === '') {
       alert('Please enter member name and phone number.');
@@ -56,7 +57,7 @@ const GroupPage = () => {
     setMemberPhoneNumber('');
   };
   
-
+// you can remove the members while creating the group
   const removemember = (phone) => {
     const updatedMembers = groupMembers.filter(member => member.phone!== phone);
     setGroupMembers(updatedMembers);
@@ -117,6 +118,7 @@ const GroupPage = () => {
           </tr>
         </thead>
         <tbody style={{ maxHeight: 'calc(100vh - 170px)', overflowY: 'auto' }}>
+          {/* show all members of group */}
           {groupMembers.map((groupmember) => (
             <tr key={groupmember.phone} className="border-b">
               <td className="py-2 px-4 whitespace-pre-line">{groupmember.name}</td>

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const EmailFormModal = ({ onClose }) => {
   const [toEmail, setToEmail] = useState('');
-
+//request to server to send invitation 
   const handleSendEmail = async () => {
     try {
       await axios.post('http://localhost:5000/user/send-email', {

@@ -16,6 +16,7 @@ function isStrongPassword(value) {
       hasSpecialChar
     );
   }
+  // validate user's name such that it includes character only
   function isValidName(value) {
     const minLength = 3;
     const containsOnlyLettersAndSpaces = /^[a-zA-Z\s]+$/.test(value);

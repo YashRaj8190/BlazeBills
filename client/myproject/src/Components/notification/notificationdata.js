@@ -14,7 +14,7 @@ const NotificationCenter = ({ setShowNotifications, showNotifications,notificati
     setShowNotifications(false);
     
   };
-
+// modal to show the notification data
   return (
       <Modal
         isOpen={modalIsOpen}
@@ -28,6 +28,7 @@ const NotificationCenter = ({ setShowNotifications, showNotifications,notificati
           <BillForm />
           </div>
           <ul>
+            {/* show all notifications  */}
             {notifications.map((notification, index) => (
               <li key={index} className="relative mb-2 p-2 bg-gray-300 rounded w-4/5 dark:bg-slate-600 dark:text-white ">
                 <span className="font-semibold">{notification.title}:</span> {notification.body}

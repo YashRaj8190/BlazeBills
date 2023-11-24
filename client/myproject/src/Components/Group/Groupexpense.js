@@ -42,7 +42,7 @@ const GroupExpense = () => {
     // Open the modal when the "Invite" button is clicked
     openModal();
   };
-
+// check whether group member is present in our database or not
   const checkUserExistence = async (phone) => {
     try {
       const response = await axios.post('http://localhost:5000/user/check-user', { phone });
@@ -63,7 +63,7 @@ const GroupExpense = () => {
     ).then((results) => setUserExistenceResults(results));
   }, [groupMember]);
 
-
+//validate the form 
   const handleSplitAmount = async () => {
     if (amount.trim() === '') {
       alert('Please enter a amount for the expense.');
@@ -73,6 +73,7 @@ const GroupExpense = () => {
       alert('Please enter details for the expense.');
       return;
     }
+    //user can add only positive amount
     if (!/^[+]?\d*\.?\d+$/.test(amount)) {
       alert('Please enter a valid positive number for the amount.');
       return;
@@ -101,7 +102,7 @@ const GroupExpense = () => {
     setExpenseDetails('');
     setSelectedMembers([]);
   };
-
+// get all transaction in which user is present
   useEffect(() => {
     const usersGroupTransaction = {
       groupId,
@@ -112,7 +113,7 @@ const GroupExpense = () => {
       .then((res) => { setAllExpenses(res.data.data); })
       .catch((err) => console.log("Something went wrong", err.message));
   }, [allExpenses.length]);
-
+//get all members of a group and store all members except user
   useEffect(() => {
     axios.post("http://localhost:5000/user/getsinglegroup", { groupId })
       .then((res) => {
@@ -163,6 +164,7 @@ const GroupExpense = () => {
           <>
             <h1 className="text-4xl font-semibold mb-4 text-center font-serif">{group.groupName}</h1>
             <div className="overflow-y-scroll h-80 ">
+              {/* show all transaction in a group */}
               <table className="min-w-full text-center border">
                 <thead className="bg-gray-200 top-0 dark:text-white dark:bg-slate-900">
                   <tr>
@@ -187,7 +189,7 @@ const GroupExpense = () => {
           </>
         )}
       </div>
-
+  {/* form to split the expense among the selected group member */}
       <div className="w-1/2 p-8 overflow-y-auto max-h-screen py-5">
         <h1 className="text-3xl font-bold mb-2">Split Amount</h1>
         <form>
@@ -210,6 +212,7 @@ const GroupExpense = () => {
               className="border p-2 w-full dark:text-white dark:bg-slate-800"
             />
           </div>
+          {/* show all members of a group and invite button if member is not registered on website */}
           <div className="mb-4">
             <label className="block text-sm font-bold mb-2">Select Members</label>
             {groupMember.length > 0 && 
@@ -256,6 +259,7 @@ const GroupExpense = () => {
           </button>
         </form>
       </div>
+      {/* show splited amount between members and status of expense */}
       {isFriendsModalOpen && (
         <FriendsModal onClose={closeFriendsModal} transactionId={transactionId} />
       )}

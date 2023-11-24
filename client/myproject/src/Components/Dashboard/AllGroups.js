@@ -6,6 +6,7 @@ const AllGroups = () => {
   const [groups, setGroups] = useState([]);
   const [isDataFetched, setIsDataFetched] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
+  //fetching all groups in which user is included
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,7 +38,8 @@ const AllGroups = () => {
           <Link to={`/dashboard/addgroupexpense/${group._id}`}>
           <div key={group._id} className="bg-violet-800 text-white rounded-lg shadow-md flex flex-col items-center justify-center h-40 w-3/4">
             <h3 className="text-center text-4xl font-semibold">{group.groupName}</h3>
-            <div className="mt-2">
+            <div className="mt-2"> 
+            {/* if user is admin of group then show "you" otherwise admin name */}
               {group.admin.phone === user.phone ? (
                 <p className="text-center text-xl font-semibold">Created by: You</p>
               ) : (

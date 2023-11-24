@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { FaExclamationTriangle } from 'react-icons/fa'; // Import the icon component
-
+//if user inters an invalid user the show this page
 const NotFound = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100  dark:bg-slate-900 dark:text-white">

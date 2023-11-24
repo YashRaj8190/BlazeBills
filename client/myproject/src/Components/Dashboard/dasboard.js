@@ -7,6 +7,7 @@ const Dashboard = () => {
     return (  
         <div>
             <Navbar2 />
+            {/* render the pages where user navigate */}
           <Outlet/>
             <Footer />
         </div>

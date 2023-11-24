@@ -10,6 +10,7 @@ const Notification = () => {
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
   const [notificationCount, setNotificationCount] = useState(0);
+  //fetch all notification those due date is less then 48 hours
 useEffect(()=>{
     axios.post(`http://localhost:5000/trigger-notifications/${user_id}`)
     .then(response => {

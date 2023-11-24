@@ -24,7 +24,7 @@ function TransactionForm() {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
   };
-
+//validate all fields of form
   const handleSubmit = async (e) => {
     e.preventDefault();
     for (const key in formData) {

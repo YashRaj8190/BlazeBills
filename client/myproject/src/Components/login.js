@@ -61,6 +61,7 @@ const Login = () => {
         const user=res.data.userdetails;
         console.log(user);
         localStorage.setItem("email",JSON.stringify(email));
+        //if user's email is verified then send it on dashboard
         if(user.isVerified){
           localStorage.setItem("user",JSON.stringify(user));
           localStorage.removeItem('email');
@@ -69,6 +70,7 @@ const Login = () => {
         }
         else{
           try {
+            //if user's email is not verified then verify the email
             const response=await axios.post("http://localhost:5000/sendotp", { email: email });
             localStorage.setItem("email",JSON.stringify(email));
             console.log(response.data);

@@ -15,6 +15,7 @@ const BillForm = () => {
     bill: '',
     // Add other fields as needed
   });
+  //validate all fields of form
   const validateFields = () => {
     if (billData.amount.trim() === '' || billData.next_due_date.trim() === '' || billData.bill.trim() === '') {
       alert('Please fill in all fields.');

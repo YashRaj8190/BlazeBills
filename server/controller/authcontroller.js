@@ -64,13 +64,16 @@ class Authcontroller{
         }
     }
     };
+    //send a otp that will expire in one minute
        static otpSender= async(req,res)=>{
         const {email}=req.body;
+        //generate otp use otp-generator liberary
          const otp=otpGenerator.generate(6,{upperCaseAlphabets:false,specialChars:false,lowerCaseAlphabets:false});
          const otpExpirationTime = Date.now() + 1* 60 * 1000; // 5 minutes in milliseconds
     
          otpCache[email] = { otp, expirationTime: otpExpirationTime };
          res.status(200).json({message:"otp generated successfully"});
+         //data of email that will be send to user
          const mailOptions = {
             from: 'expenseTracker@gmail.com',
             to:email,
@@ -88,6 +91,7 @@ class Authcontroller{
             }
           });
       };
+      //veryfiy the otp 
       static verifyOtp=async(req,res)=>{
         const {email,enteredOTP}=req.body;
         console.log(req.body);
@@ -98,14 +102,13 @@ class Authcontroller{
             return res.status(400).json({message:"otp not found"});
         }
         const {otp , expirationTime } = storedOTPData;
-    
       if (Date.now() > expirationTime) {
         delete otpCache[email];
         return res.status(400).json({ message: "OTP has expired" });
       }
         if(enteredOTP===otp){
             const updatedUser=await User.findOneAndUpdate({email:email},{$set:{isVerified:true}},{new:true});
-          
+          //delete the otp after the email verification
             delete otpCache[email];
             res.status(200).json({message:'Otp verified successfully',updatedUser});
         }
@@ -116,6 +119,7 @@ class Authcontroller{
         }
         
       };
+      //update the users password
       static resetPassword=async(req,res)=>{
         console.log(req.body);
         try{

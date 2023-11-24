@@ -44,7 +44,7 @@ const Navbar2 = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
+  //set proper name corresponding to links
   return (
     <>
     <nav className="bg-gray-800 dark:bg-black p-4 flex items-center justify-between flex-wrap" ref={navbar}>
@@ -80,6 +80,7 @@ const Navbar2 = () => {
         
       </div>
       </>}
+      {/* do conditional rendering to make page responsive */}
       <div className="md:hidden text-white mr-5">
         <button onClick={toggleNav}>
            {nav ? <X/> : <Menu/>}

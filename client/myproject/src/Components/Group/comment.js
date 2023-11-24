@@ -13,7 +13,7 @@ const CommentItem = ({ comment }) => {
       <FaComment className="text-green-500" />
     </div>
     <div className="text-gray-700 dark:text-white dark:bg-slate-800">
-    
+    {/* show all comments if available with time and date*/}
       <strong> {comment && user.phone === comment.commentedBy.phone ? "You" : comment.commentedBy.name}</strong> | 
       <strong>{commentDate.toLocaleString()}</strong> 
       <p className="text-gray-800 dark:text-white dark:bg-slate-800">{comment.comment}</p>

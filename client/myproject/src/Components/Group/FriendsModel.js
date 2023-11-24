@@ -9,7 +9,7 @@ const FriendsModal = ({ onClose, transactionId }) => {
   const [newComment, setNewComment] = useState('');
   let isAmountPaid = false;
   const user = JSON.parse(localStorage.getItem('user'));
-
+// fetch a single transaction using transaction id
   useEffect(() => {
     axios.post('http://localhost:5000/user/getsinglegrouptransaction', { _id: transactionId })
       .then(response => {
@@ -55,6 +55,7 @@ const FriendsModal = ({ onClose, transactionId }) => {
         console.error('Error fetching comments:', error);
       });
   };
+  //fetch all comments related to particular transaction
   useEffect(() => {
     axios.post(`http://localhost:5000/user/getcommentbytransactionid`,{transactionId})
       .then(response => {
@@ -75,7 +76,7 @@ const FriendsModal = ({ onClose, transactionId }) => {
   };
 
   
-  
+  //modified the data if user pays the amount
   useEffect(() => {
     if (phoneNumber) {
       // Only make the update request if phoneNumber is defined
@@ -95,6 +96,7 @@ const FriendsModal = ({ onClose, transactionId }) => {
       <div className="bg-white p-8 rounded-lg shadow-lg flex w-4/6 dark:text-white dark:bg-slate-800">
         <div className="w-1/2 pr-4">
           <h2 className="text-3xl font-bold mb-4">{transactionDetails && transactionDetails.expenseDetails}</h2>
+        {/* show all members that are part of transactions and those status of expense */}
           {transactionDetails && (
             <div>
               {user.phone === transactionDetails.transactionFrom.phone ? (
@@ -102,6 +104,7 @@ const FriendsModal = ({ onClose, transactionId }) => {
                   {transactionDetails.transactionMembers.length > 0 && transactionDetails.transactionMembers.map((friend, index) => (
                     <li key={index} className="mb-2 p-1 flex justify-between items-center">
                       {friend.ispaid ? `${friend.name}-${friend.phone} paid ${(transactionDetails.amount / (transactionDetails.transactionMembers.length + 1)).toFixed(2)} to You` : `${friend.name}-${friend.phone} will pay ${(transactionDetails.amount / (transactionDetails.transactionMembers.length + 1)).toFixed(2)} to You`}
+                      {/* if user paid you then mark it paid */}
                       <button
                         onClick={() => markAsPaid(friend.phone)}
                         disabled={friend.ispaid}

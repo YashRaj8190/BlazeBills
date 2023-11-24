@@ -10,7 +10,7 @@ const EmailVerificationPage = () => {
 
   useEffect(() => {
     let intervalId;
-
+ //set timer of one minute 
     if (timer > 0) {
       intervalId = setInterval(() => {
         setTimer((prevTimer) => prevTimer - 1);
@@ -21,7 +21,7 @@ const EmailVerificationPage = () => {
 
     return () => clearInterval(intervalId);
   }, [timer]);
-
+// make a request to verify the otp
   const handleVerifyClick = async () => {
     const email = JSON.parse(localStorage.getItem('email'));
 
@@ -31,6 +31,7 @@ const EmailVerificationPage = () => {
         console.log(response);
         alert("otp verified successfully");
         const isforgetpassword=JSON.parse(localStorage.getItem("isforgetpassword"));
+        //if user want to reset password then navigate to reset password page
         if(isforgetpassword){
             navigate("/resetpassword");
         }
@@ -49,7 +50,7 @@ const EmailVerificationPage = () => {
         alert('OTP verification failed');
       });
   };
-
+//if otp has been expired then again send a otp 
   const handleResendClick = async () => {
     const email = JSON.parse(localStorage.getItem('email'));
 

@@ -25,7 +25,7 @@ const Transaction = () => {
     });
 
 
-
+    //fetching all past transactions 
     useEffect(() => {
         axios.post('http://localhost:5000/user/getalltransaction', userObject)
             .then(response => {
@@ -40,16 +40,20 @@ const Transaction = () => {
     const closeDropdown = () => {
         setDropdownOpen(false);
     };
+    //filtering data according to users requirement
     const handleFilter = () => {
         const startDateObj = new Date(startDate);
         const endDateObj = new Date(endDate);
         endDateObj.setHours(23, 59, 59, 999);
-        const presentDate = Date.now();
+        const presentDate = new Date();
+        const modifiedDate = new Date(presentDate);
+        modifiedDate.setHours(23, 59, 59, 999);
+
         if (startDateObj > endDateObj) {
             alert("start date can not be greater then end date");
             return;
         }
-        if (endDateObj > presentDate) {
+        if (endDateObj >modifiedDate) {
             alert("please enter valid date");
             return;
         }
@@ -69,7 +73,7 @@ const Transaction = () => {
     };
 
 
-
+    // opening and closing of dropdown when user clicks on page
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (isDropdownOpen && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -83,7 +87,7 @@ const Transaction = () => {
             document.removeEventListener("click", handleClickOutside);
         };
     }, [isDropdownOpen]);
-
+    //set up header for csv file
     const headers = [
         { label: 'Transaction Date', key: 'date' },
         { label: 'Transaction Type', key: 'transactionType' },
@@ -91,7 +95,7 @@ const Transaction = () => {
         { label: 'Description', key: 'description' },
         { label: 'Amount', key: 'amount' },
     ];
-
+    //store data to show in csv file
     let data = [];
     if (!isfiltredDate) {
         data = transaction.map(trans => ({
@@ -116,6 +120,7 @@ const Transaction = () => {
         setStartDate("");
         setEndDate("");
     }
+    //fetching the image 
     const handleViewClick = (expensereciept) => {
         // Set the image source and update the state to show the image
         setImageSrc(`http://localhost:5000/${expensereciept}`);
@@ -127,53 +132,54 @@ const Transaction = () => {
 
             <h2 className="text-5xl text-center font-bold dark:text-white py-5 font-serif">Transaction History</h2>
             <div className="flex justify-center p-4 space-x-4 gap-4">
-            <div className="flex order-3 items-end">
-                <div className="relative mr-4"  ref={dropdownRef}>
-                    <button
-                        onClick={() => setDropdownOpen(!isDropdownOpen)}
-                        className=" text-white bg-amber-700 px-4 py-2 rounded-lg hover:bg-amber-800 flex gap-2 "
-                    >
-                       <Download/> Download Report
-                    </button>
-                    {isDropdownOpen && (
-                        <div className="absolute w-40 bg-amber-300 border rounded shadow-lg flex-col">
-                        <CSVLink
-                            data={data}
-                            headers={headers}
-                            filename="expense_report.csv"
-                            className="w-full px-7 py-5 text-white-800"
-                            onClick={closeDropdown}
+                <div className="flex order-3 items-end">
+                    <div className="relative mr-4" ref={dropdownRef}>
+                        <button
+                            onClick={() => setDropdownOpen(!isDropdownOpen)}
+                            className=" text-white bg-amber-700 px-4 py-2 rounded-lg hover:bg-amber-800 flex gap-2 "
                         >
-                            Export to CSV
-                        </CSVLink>
-                        <button className="w-full px-4 py-2 text-white-800" onClick={handlePrint}>Generate PDF</button>
-                    </div>
-                    
-                    )}
-                </div>
-            </div>
+                            <Download /> Download Report
+                        </button>
+                        {isDropdownOpen && (
+                            <div className="absolute w-40 bg-amber-300 border rounded shadow-lg flex-col">
+                                <CSVLink
+                                    data={data}
+                                    headers={headers}
+                                    filename="expense_report.csv"
+                                    className="w-full px-7 py-5 text-white-800"
+                                    onClick={closeDropdown}
+                                >
+                                    Export to CSV
+                                </CSVLink>
+                                <button className="w-full px-4 py-2 text-white-800" onClick={handlePrint}>Generate PDF</button>
+                            </div>
 
-  <div className="flex flex-col items-center dark:text-white dark:bg-slate-800">
-    <label htmlFor="startDate" className="text-gray-600 dark:text-white dark:bg-slate-800">Start Date</label>
-    <input
-      id="startDate"
-      type="date"
-      value={startDate}
-      onChange={(e) => setStartDate(e.target.value)}
-      className="border p-2 mt-1 dark:text-white dark:bg-slate-800"
-    />
-  </div>
-  
-  <div className="flex flex-col items-center">
-    <label htmlFor="endDate" className="text-gray-600 dark:text-white dark:bg-slate-800">End Date</label>
-    <input
-      id="endDate"
-      type="date"
-      value={endDate}
-      onChange={(e) => setEndDate(e.target.value)}
-      className="border p-2 mt-1 dark:text-white dark:bg-slate-800"
-    />
-  </div>
+                        )}
+                    </div>
+                </div>
+                {/* fill the start and end date to fillter the data */}
+                <div className="flex flex-col items-center dark:text-white dark:bg-slate-800">
+                    <label htmlFor="startDate" className="text-gray-600 dark:text-white dark:bg-slate-800">Start Date</label>
+                    <input
+                        id="startDate"
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                        className="border p-2 mt-1 dark:text-white dark:bg-slate-800"
+                    />
+                </div>
+
+                <div className="flex flex-col items-center">
+                    <label htmlFor="endDate" className="text-gray-600 dark:text-white dark:bg-slate-800">End Date</label>
+                    <input
+                        id="endDate"
+                        type="date"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                        className="border p-2 mt-1 dark:text-white dark:bg-slate-800"
+                    />
+                    {/* show all filtered data */}
+                </div>
 
                 {!isfiltredDate ?
                     <button
@@ -192,7 +198,7 @@ const Transaction = () => {
             </div>
 
 
-            
+            {/*show all past transactions and provide ref to div that data we want to print  */}
             <div className="mt-10 overflow-y-scroll h-80 px-2" ref={componentRef}>
                 <table className="min-w-full ">
                     <thead className="bg-white sticky top-0 ">
@@ -237,6 +243,7 @@ const Transaction = () => {
 
                             </tr>
                         ))}
+                        {/* if user click on filter button then show filter data */}
                         {isfiltredDate && filterData && filterData.map((transactions) => (
                             <tr key={transactions.id} className="hover:bg-gray-100 hover:text-black">
                                 <td className="py-2 px-4 font-semibold">{new Date(transactions.date).toLocaleDateString()} {new Date(transactions.date).toLocaleTimeString('en-US', {
@@ -252,6 +259,7 @@ const Transaction = () => {
                             </tr>
                         ))}
                     </tbody>
+                    {/* if user want to show image then open the image */}
                     {showImage && (
                         <div className="fixed top-0 left-0 h-full w-full flex items-center justify-center bg-gray-800 bg-opacity-80">
                             <div className="relative bg-white p-4 rounded-lg shadow-md">

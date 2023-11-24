@@ -18,7 +18,7 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  // send form data to server to store it in database
     try {
       const res = await axios.post("http://localhost:5000/user/signup", formData)
       const user = res.data.newUser;
@@ -30,6 +30,7 @@ function Signup() {
         navigate("/dashboard");
       }
       else {
+        //send otp as user sign up
         try {
           const response = await axios.post("http://localhost:5000/sendotp", { email: user.email });
           console.log(response.data);
