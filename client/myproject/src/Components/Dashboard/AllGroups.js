@@ -42,7 +42,7 @@ const AllGroups = () => {
                 <p className="text-center text-xl font-semibold">Created by: You</p>
               ) : (
                 <p className="text-center text-xl font-semibold">
-                  Created by: {group.admin.name} phone: {group.admin.phone}
+                  Created by: {group.admin.name} 
                 </p>
               )}
             </div>

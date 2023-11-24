@@ -65,6 +65,22 @@ const BillForm = () => {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Add Bill Modal"
+        style={{
+          overlay: {
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backdropFilter: 'blur(10px)', // Add a blur effect to the background
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+            content: {
+              padding: '10px',
+              backgroundColor: 'rgba(255, 255, 255, 0)',
+            },
+          }}
       >
         <div className="max-w-md mx-auto mt-10 p-6 bg-gray-300 rounded-md shadow-md dark:bg-slate-800 dark:text-white">
           <h2 className="text-2xl font-semibold mb-6">Set Reminder</h2>
