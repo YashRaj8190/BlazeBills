@@ -199,7 +199,7 @@ const Transaction = () => {
 
 
             {/*show all past transactions and provide ref to div that data we want to print  */}
-            <div className="mt-10 overflow-y-scroll h-80 px-2" ref={componentRef}>
+            <div className="mt-10 h-80 px-2" ref={componentRef}>
                 <table className="min-w-full ">
                     <thead className="bg-white sticky top-0 ">
                         <tr>
@@ -208,7 +208,7 @@ const Transaction = () => {
                             <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-900 dark:text-yellow-500">Category</th>
                             <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-900 dark:text-yellow-500">Description</th>
                             <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-900 dark:text-yellow-500">Amount</th>
-                            <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-900 dark:text-yellow-500">reciept</th>
+                            <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-900 dark:text-yellow-500">Reciept</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -223,18 +223,18 @@ const Transaction = () => {
                                 <td className="py-2 px-4 font-semibold">{transactions.transactionType}</td>
                                 <td className="py-2 px-4 font-semibold">{transactions.category}</td>
                                 <td className="py-2 px-4 font-semibold">{transactions.description}</td>
-                                <td className="py-2 px-4 font-semibold">{transactions.amount}</td>
+                                <td className="py-2 px-4 font-semibold ">{transactions.amount}</td>
                                 {transactions.expensereciept ? (
                                     <button
                                         onClick={() => handleViewClick(transactions.expensereciept)}
-                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline"
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 mt-1 ml-3 rounded focus:outline-none focus:shadow-outline flex "
                                     >
                                         View
                                     </button>
                                 ) : (
                                     <button
                                         disabled
-                                        className="bg-gray-300 text-gray-500 cursor-not-allowed font-bold py-1 px-4 rounded"
+                                        className="bg-gray-300 text-gray-500cursor-not-allowed font-bold py-1 px-4 rounded mt-1 ml-3"
                                     >
                                         View
                                     </button>
@@ -256,6 +256,22 @@ const Transaction = () => {
                                 <td className="py-2 px-4 font-semibold">{transactions.category}</td>
                                 <td className="py-2 px-4 font-semibold">{transactions.description}</td>
                                 <td className="py-2 px-4 font-semibold">{transactions.amount}</td>
+                                {transactions.expensereciept ? (
+                                    <button
+                                        onClick={() => handleViewClick(transactions.expensereciept)}
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 mt-1 ml-3 rounded focus:outline-none focus:shadow-outline flex "
+                                    >
+                                        View
+                                    </button>
+                                ) : (
+                                    <button
+                                        disabled
+                                        className="bg-gray-300 text-gray-500cursor-not-allowed font-bold py-1 px-4 rounded mt-1 ml-3"
+                                    >
+                                        View
+                                    </button>
+                                )}
+
                             </tr>
                         ))}
                     </tbody>

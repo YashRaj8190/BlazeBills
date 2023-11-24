@@ -144,7 +144,7 @@ const BillForm = () => {
                 type="submit"
                 className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
               >
-                Add Bill
+                Set Reminder
               </button>
               <button
                 onClick={closeModal}

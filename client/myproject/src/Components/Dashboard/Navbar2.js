@@ -71,7 +71,7 @@ const Navbar2 = () => {
       <div className="flex items-center gap-2" >
       <Darkmode/>
       <Notification/>
-        <button className="bg-gray-200 text-black px-3.5 py-2 rounded-xl mr-2">
+        <button className="bg-gray-200 text-black px-3.5 py-2 rounded-xl mr-2 ml-2">
           {JSON.parse(localStorage.getItem('user')).name}
         </button>
         <button className="bg-red-500 text-white px-3.5 py-2 rounded-xl ml-2" onClick={logoutUser}>

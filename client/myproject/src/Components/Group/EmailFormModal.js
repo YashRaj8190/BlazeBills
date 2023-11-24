@@ -24,7 +24,7 @@ const EmailFormModal = ({ onClose }) => {
         <h2 className="mb-4 text-xl font-bold text-center">Invite Members</h2>
         <label className="mb-4">
           <input
-            className="w-full px-2 py-1 border rounded"
+            className="w-full px-2 py-1 border rounded dark:text-black"
             type="email"
             placeholder='Enter email'
             value={toEmail}

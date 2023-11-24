@@ -83,7 +83,7 @@ function Signup() {
               name="name"
               value={formData.name}
               onChange={handleInputChange}
-              className="w-full p-2 mt-2 rounded border border-gray-300  dark:text-white"
+              className="w-full p-2 mt-2 rounded border border-gray-300  dark:text-black"
               placeholder="Enter your name"
             />
           </div>
@@ -96,7 +96,7 @@ function Signup() {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              className="w-full p-2 mt-2 rounded border border-gray-300  dark:text-white"
+              className="w-full p-2 mt-2 rounded border border-gray-300  dark:text-black"
               placeholder="Enter your email address"
             />
           </div>
@@ -109,7 +109,7 @@ function Signup() {
               name="phone"
               value={formData.phone}
               onChange={handleInputChange}
-              className="w-full p-2 mt-2 rounded border border-gray-300  dark:text-white"
+              className="w-full p-2 mt-2 rounded border border-gray-300  dark:text-black"
               placeholder="Enter your phone number"
             />
           </div>
@@ -122,7 +122,7 @@ function Signup() {
               name="password"
               value={formData.password}
               onChange={handleInputChange}
-              className="w-full p-2 mt-2 rounded border border-gray-300  dark:text-white"
+              className="w-full p-2 mt-2 rounded border border-gray-300  dark:text-black"
               placeholder="********"
             />
           </div>
@@ -135,7 +135,7 @@ function Signup() {
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleInputChange}
-              className="w-full p-2 mt-2 rounded border border-gray-300  dark:text-white"
+              className="w-full p-2 mt-2 rounded border border-gray-300  dark:text-black"
               placeholder="********"
             />
           </div>
