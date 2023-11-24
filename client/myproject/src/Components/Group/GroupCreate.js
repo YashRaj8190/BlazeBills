@@ -65,7 +65,7 @@ const GroupPage = () => {
 
   return (
     <div className="container mx-auto p-4 flex dark:bg-slate-800 dark:text-white min-h-screen">
-    <div className="w-1/2 pr-8">
+    <div className="w-1/2 pr-8 pl-5">
         <h1 className="text-3xl font-bold mb-4">Create a Group</h1>
         <div className="mb-4">
           <label className="block text-sm font-bold mb-2 ">Group Name</label>

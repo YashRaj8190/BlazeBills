@@ -20,6 +20,27 @@ const NotificationCenter = ({ setShowNotifications, showNotifications,notificati
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Notification Center Modal"
+        style={{
+          overlay: {
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backdropFilter: 'blur(10px)', // Add a blur effect to the background
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+            content: {
+              position: 'relative',
+              maxWidth: '800px', // Set a max width if desired
+              height: '80%', // Adjust the height as needed
+              maxHeight: '500px', // Set a max height if desired
+              borderRadius: '8px',
+              padding: '10px',
+              backgroundColor: 'rgba(255, 255, 255, 0)',
+            },
+          }}
       >
         <div className="flex justify-center">
         <div className="w-3/4 mx-3 mt-10 p-6 bg-gray-100 rounded-md shadow-md dark:bg-slate-800 dark:text-white">

@@ -69,7 +69,7 @@ function TransactionForm() {
   };
 
   const backgroundImageUrl =
-  'https://static.vecteezy.com/system/resources/previews/004/837/342/non_2x/abstract-futuristic-background-with-glowing-light-effect-vector.jpg';
+  'https://wallup.net/wp-content/uploads/2017/11/23/502910-Firewatch-night-forest.jpg';
 
   return (
     <div 
@@ -82,12 +82,13 @@ function TransactionForm() {
     >
       <form
         onSubmit={handleSubmit}
-        style={{ width: "400px" }} className=" bg-gray-200 dark:text-white dark:bg-slate-800 bg-blur-lg backdrop-filter shadow-md rounded-lg px-8 pt-6 pb-6 mb-4 "
+        style={{ width: "400px" }} className=" bg-white dark:text-white bg-opacity-30 backdrop-blur-sm dark:bg-black dark:bg-opacity-50 dark:backdrop-blur-sm
+        bg-blur-lg backdrop-filter shadow-md rounded-lg px-8 pt-6 pb-6 mb-4 "
       >
-        <div className='m-4'><h1 className='text-4xl font-bold text-center text-gray-800 dark:text-white'>ADD EXPENSE</h1></div>
+        <div className='m-4'><h1 className='text-4xl font-bold text-center text-black dark:text-white'>ADD EXPENSE</h1></div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white" htmlFor="transactionType">
+          <label className="block text-black text-sm font-bold mb-2 dark:text-white" htmlFor="transactionType">
             Transaction Type
           </label>
           <input
@@ -95,12 +96,12 @@ function TransactionForm() {
             name="transactionType"
             value={formData.transactionType}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white dark:bg-slate-800"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline dark:text-black "
           />
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white" htmlFor="description">
+          <label className="block text-black text-sm font-bold mb-2 dark:text-white" htmlFor="description">
             Description
           </label>
           <input
@@ -108,12 +109,12 @@ function TransactionForm() {
             name="description"
             value={formData.description}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white dark:bg-slate-800 "
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline dark:text-black  "
           />
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white" htmlFor="amount">
+          <label className="block text-black text-sm font-bold mb-2 dark:text-white" htmlFor="amount">
             Amount
           </label>
           <input
@@ -121,19 +122,19 @@ function TransactionForm() {
             name="amount"
             value={formData.amount}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus: -none focus:shadow-outline dark:text-white dark:bg-slate-800"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus: -none focus:shadow-outline dark:text-black "
           />
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white " htmlFor="category">
+          <label className="block text-black text-sm font-bold mb-2 dark:text-white " htmlFor="category">
             Category
           </label>
           <select
             name="category"
             value={formData.category}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white dark:bg-slate-800"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline dark:text-black "
           >
             <option value="">Select a category</option>
             <option value="Groceries">Groceries</option>
@@ -151,7 +152,7 @@ function TransactionForm() {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white" htmlFor="expensereciept">
+          <label className="block text-black text-sm font-bold mb-2 dark:text-white" htmlFor="expensereciept">
             Expense Reciept
           </label>
           <input
@@ -159,7 +160,7 @@ function TransactionForm() {
             name="expensereciept"
             onChange={handleChange}
             accept="image/*"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white dark:bg-slate-800"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline dark:text-white "
           />
         </div>
 
