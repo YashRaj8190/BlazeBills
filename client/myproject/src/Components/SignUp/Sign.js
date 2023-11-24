@@ -45,7 +45,7 @@ function Signup(){
   };
 
   const backgroundImageUrl =
-  'https://static.vecteezy.com/system/resources/previews/004/837/342/non_2x/abstract-futuristic-background-with-glowing-light-effect-vector.jpg';
+  'https://wallup.net/wp-content/uploads/2017/11/23/502910-Firewatch-night-forest.jpg';
 
   return (
     <div className="min-h-screen flex items-center justify-center "
@@ -54,11 +54,11 @@ function Signup(){
       backgroundSize: 'cover',
       backgroundPosition: 'center',
     }}>
-      <div className="bg-white p-8 rounded shadow-md w-96 dark:bg-slate-800 dark:text-white">
+      <div className="bg-gray-200 p-8 rounded shadow-md w-96 dark:bg-slate-800 dark:text-white bg-opacity-40 backdrop-blur-sm dark:bg-opacity-80 dark:backdrop-blur-sm">
         <h2 className="text-2xl font-semibold mb-4 text-center">Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="name" className="text-sm font-medium text-gray-600 dark:text-white">
+            <label htmlFor="name" className="text-sm font-medium text-black dark:text-white">
               Name
             </label>
             <input
@@ -66,12 +66,12 @@ function Signup(){
               name="name"
               value={formData.name}
               onChange={handleInputChange}
-              className="w-full p-2 mt-2 rounded border border-gray-300 dark:bg-slate-800 dark:text-white"
+              className="w-full p-2 mt-2 rounded border border-gray-300  dark:text-white"
               placeholder="Enter your name"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="email" className="text-sm font-medium text-gray-600 dark:text-white">
+            <label htmlFor="email" className="text-sm font-medium text-black dark:text-white">
               Email
             </label>
             <input
@@ -79,12 +79,12 @@ function Signup(){
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              className="w-full p-2 mt-2 rounded border border-gray-300 dark:bg-slate-800 dark:text-white"
+              className="w-full p-2 mt-2 rounded border border-gray-300  dark:text-white"
               placeholder="Enter your email address"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="phone" className="text-sm font-medium text-gray-600 dark:text-white">
+            <label htmlFor="phone" className="text-sm font-medium text-black dark:text-white">
               Phone
             </label>
             <input
@@ -92,12 +92,12 @@ function Signup(){
               name="phone"
               value={formData.phone}
               onChange={handleInputChange}
-              className="w-full p-2 mt-2 rounded border border-gray-300 dark:bg-slate-800 dark:text-white"
+              className="w-full p-2 mt-2 rounded border border-gray-300  dark:text-white"
               placeholder="Enter your phone number"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="text-sm font-medium text-gray-600 dark:text-white">
+            <label htmlFor="password" className="text-sm font-medium text-black dark:text-white">
               Password
             </label>
             <input
@@ -105,12 +105,12 @@ function Signup(){
               name="password"
               value={formData.password}
               onChange={handleInputChange}
-              className="w-full p-2 mt-2 rounded border border-gray-300 dark:bg-slate-800 dark:text-white"
+              className="w-full p-2 mt-2 rounded border border-gray-300  dark:text-white"
               placeholder="********"
             />
           </div>
           <div className="mb-4 ">
-            <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-600 dark:text-white">
+            <label htmlFor="confirmPassword" className="text-sm font-medium text-black dark:text-white">
               Confirm Password
             </label>
             <input
@@ -118,13 +118,13 @@ function Signup(){
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleInputChange}
-              className="w-full p-2 mt-2 rounded border border-gray-300 dark:bg-slate-800 dark:text-white"
+              className="w-full p-2 mt-2 rounded border border-gray-300  dark:text-white"
               placeholder="********"
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+            className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-800"
           >
             Sign Up
           </button>

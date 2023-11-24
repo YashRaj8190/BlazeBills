@@ -81,42 +81,42 @@ const Login = () => {
   };
 
   const backgroundImageUrl =
-  'https://static.vecteezy.com/system/resources/previews/004/837/342/non_2x/abstract-futuristic-background-with-glowing-light-effect-vector.jpg';
+  'https://wallup.net/wp-content/uploads/2017/11/23/502910-Firewatch-night-forest.jpg';
   return (
     <div
-      className="min-h-screen flex items-center justify-center dark:bg-slate-800 dark:text-white"
+      className="min-h-screen flex items-center justify-center  dark:text-white"
       style={{
         backgroundImage: `url(${backgroundImageUrl})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
-      <div className="bg-white p-8 rounded shadow-lg w-96 dark:bg-slate-800 dark:text-white">
-        <h2 className="text-2xl text-center font-bold mb-4 dark:bg-slate-800 dark:text-white">Login</h2>
+      <div className="bg-white p-8 rounded shadow-lg w-96 dark:bg-slate-800 dark:text-white bg-opacity-40 backdrop-blur-sm dark:bg-opacity-80 dark:backdrop-blur-sm">
+        <h2 className="text-2xl text-center font-bold mb-4  dark:text-white">Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-600 dark:bg-slate-800 dark:text-white">
+            <label htmlFor="email" className="block text-sm font-medium text-black  dark:text-white">
               Email
             </label>
             <input
             placeholder="Enter Email"
               type="email"
               id="email"
-              className="mt-1 p-2 w-full border rounded-md dark:bg-slate-800 dark:text-white"
+              className="mt-1 p-2 w-full border rounded-md  dark:text-black"
               value={email}
               onChange={handleEmailChange}
               required
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-600 dark:bg-slate-800 dark:text-white">
+            <label htmlFor="password" className="block text-sm font-medium text-black  dark:text-white">
               Password
             </label>
             <input
             placeholder="Enter Password"
               type="password"
               id="password"
-              className="mt-1 p-2 w-full border rounded-md dark:bg-slate-800 dark:text-white"
+              className="mt-1 p-2 w-full border rounded-md  dark:text-black"
               value={password}
               onChange={handlePasswordChange}
               required
@@ -125,7 +125,7 @@ const Login = () => {
           <div className="flex items-center justify-center mt-4 ">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-200"
+            className="bg-blue-600 hover:bg-blue-800 text-white py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-200"
           >
             Login
           </button>
@@ -141,7 +141,7 @@ const Login = () => {
           {/* Forget password button */}
           <button
             onClick={handleForgetPassword}
-            className="text-blue-500 hover:underline focus:outline-none"
+            className="text-blue-400 hover:underline focus:outline-none"
           >
             Forget Password?
           </button>
