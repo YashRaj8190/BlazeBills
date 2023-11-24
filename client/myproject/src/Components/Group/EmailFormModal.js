@@ -19,8 +19,8 @@ const EmailFormModal = ({ onClose }) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-75">
-      <div className="bg-white p-8 rounded-lg shadow-lg flex dark:text-white dark:bg-slate-800">
-      <div className="flex flex-col ">
+      <div className="bg-white p-8 rounded-lg shadow-lg flex dark:text-white dark:bg-slate-900" >
+      <div className="flex flex-col w-full">
         <h2 className="mb-4 text-xl font-bold text-center">Invite Members</h2>
         <label className="mb-4">
           <input

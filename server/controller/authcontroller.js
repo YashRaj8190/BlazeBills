@@ -90,6 +90,7 @@ class Authcontroller{
       };
       static verifyOtp=async(req,res)=>{
         const {email,enteredOTP}=req.body;
+        console.log(req.body);
         
         const storedOTPData=otpCache[email];
        console.log(storedOTPData);
@@ -116,7 +117,7 @@ class Authcontroller{
         
       };
       static resetPassword=async(req,res)=>{
-        //console.log(req.body);
+        console.log(req.body);
         try{
           const password=await bcrypt.hash(req.body.password,10);
           await User.findOneAndUpdate({email:req.body.email},{$set:{password:password}});

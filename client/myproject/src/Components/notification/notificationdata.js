@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { FaTimes } from 'react-icons/fa';
+import BillForm from './addbill';
 
 // Initialize react-modal
 Modal.setAppElement('#root'); // Set the root element for accessibility
@@ -15,17 +16,20 @@ const NotificationCenter = ({ setShowNotifications, showNotifications,notificati
   };
 
   return (
-    <div>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Notification Center Modal"
       >
-        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-md shadow-md">
+        <div className="flex justify-center">
+        <div className="w-3/4 mx-3 mt-10 p-6 bg-gray-100 rounded-md shadow-md dark:bg-slate-800 dark:text-white">
+          <div className='flex justify-between'>
           <h2 className="text-2xl font-bold mb-4">Notification Center</h2>
+          <BillForm />
+          </div>
           <ul>
             {notifications.map((notification, index) => (
-              <li key={index} className="relative mb-2 p-2 bg-gray-100 rounded">
+              <li key={index} className="relative mb-2 p-2 bg-gray-300 rounded w-4/5 dark:bg-slate-600 dark:text-white ">
                 <span className="font-semibold">{notification.title}:</span> {notification.body}
                 <button
                   onClick={() => removeNotification(notification.billId)}
@@ -38,13 +42,13 @@ const NotificationCenter = ({ setShowNotifications, showNotifications,notificati
           </ul>
           <button
             onClick={closeModal}
-            className="bg-gray-400 text-white py-2 px-4 rounded-md hover:bg-gray-600 focus:outline-none focus:shadow-outline-gray active:bg-gray-800 mt-4"
+            className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-800 focus:outline-none focus:shadow-outline-gray active:bg-gray-800 mt-4"
           >
             Close
           </button>
         </div>
+        </div>
       </Modal>
-    </div>
   );
 };
 

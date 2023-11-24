@@ -94,13 +94,13 @@ const GroupPage = () => {
               placeholder="Enter member phone number"
               className="border p-2 mr-2 w-1/2 dark:text-black"
             />
-            <button onClick={addMember} className="bg-green-500 text-white p-2">
+            <button onClick={addMember} className="bg-green-500 rounded ext-white p-2">
               Add Member
             </button>
           </div>
         </div>
 
-        <button onClick={createGroup} className="bg-blue-500 text-white p-2">
+        <button onClick={createGroup} className="bg-blue-500 rounded text-white p-2">
           Create Group
         </button>
       </div>

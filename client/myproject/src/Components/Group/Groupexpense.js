@@ -148,7 +148,7 @@ const GroupExpense = () => {
             <h1 className="text-4xl font-semibold mb-4 text-center font-serif">{group.groupName}</h1>
             <div className="overflow-y-scroll h-80 ">
               <table className="min-w-full text-center border">
-                <thead className="bg-white top-0 dark:text-white dark:bg-slate-800">
+                <thead className="bg-gray-200 top-0 dark:text-white dark:bg-slate-900">
                   <tr>
                     <th className="py-5 px-4 border-b">Expense Details</th>
                     <th className="py-5 px-4 border-b">Amount</th>

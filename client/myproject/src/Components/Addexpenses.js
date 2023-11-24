@@ -51,13 +51,21 @@ function TransactionForm() {
     }
   };
 
+  const backgroundImageUrl =
+  'https://static.vecteezy.com/system/resources/previews/004/837/342/non_2x/abstract-futuristic-background-with-glowing-light-effect-vector.jpg';
+
   return (
     <div 
-     style={{color:"black",opacity:"1"}} className="  h-[82vh] flex items-center justify-center bg-gradient-to-r from-blue-400 to-purple-500 "
+     style={{
+      backgroundImage: `url(${backgroundImageUrl})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}
+     className=" h-[92vh] flex items-center justify-center pb-10"
     >
       <form
         onSubmit={handleSubmit}
-        style={{ width: "400px" }} className="bg-opacity-20 bg-white dark:text-white dark:bg-slate-800 bg-blur-lg backdrop-filter  shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 transition-transform duration-100 ease-in-out transform hover:scale-110"
+        style={{ width: "400px" }} className=" bg-gray-200 dark:text-white dark:bg-slate-800 bg-blur-lg backdrop-filter shadow-md rounded-lg px-8 pt-6 pb-6 mb-4 "
       >
         <div className='m-4'><h1 className='text-4xl font-bold text-center text-gray-800 dark:text-white'>ADD EXPENSE</h1></div>
 
@@ -111,16 +119,23 @@ function TransactionForm() {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white dark:bg-slate-800"
           >
             <option value="">Select a category</option>
-            <option value="groceries">Groceries</option>
-            <option value="utilities">Utilities</option>
-            <option value="transportation">Transportation</option>
-            <option value="dining">Dining</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Transportation">Transportation</option>
+            <option value="Dining">Dining</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Education">Education</option>
+            <option value="Technology">Technology</option>
+            <option value="Miscellaneous">Miscellaneous</option>
+
           </select>
         </div>
 
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white" htmlFor="expensereciept">
-            expensereciept
+            Expense Reciept
           </label>
           <input
             type="file"

@@ -39,7 +39,8 @@ const BillForm = () => {
         billData,
       });
 
-      console.log('Bill added successfully:', response.data);
+      console.log('Reminder set successfully:', response.data);
+      alert('Reminder set successfully !!');
       closeModal(); // Close the modal on successful submission
       // Optionally, you can update your UI or show a success message to the user
     } catch (error) {
@@ -56,45 +57,46 @@ const BillForm = () => {
 
   return (
     <div>
-      <button onClick={openModal} className="bg-gray-800 font-bold py-2 px-4 rounded-md block text-white">
-        Add Bill
-      </button>
+      <button onClick={openModal}
+          className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded">
+            Add Reminder
+          </button>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Add Bill Modal"
       >
-        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-md shadow-md">
-          <h2 className="text-2xl font-semibold mb-6">Add Bill</h2>
+        <div className="max-w-md mx-auto mt-10 p-6 bg-gray-300 rounded-md shadow-md dark:bg-slate-800 dark:text-white">
+          <h2 className="text-2xl font-semibold mb-6">Set Reminder</h2>
           <form onSubmit={handleSubmit}>
-            <label className="block mb-4">
-              <span className="text-gray-700">Amount:</span>
+            <label className="block mb-4 ">
+              <span className="text-gray-700 dark:text-white">Amount:</span>
               <input
                 type="number"
                 name="amount"
                 value={billData.amount}
                 onChange={handleInputChange}
-                className="form-input mt-1 block w-full"
+                className="form-input pl-1 mt-1 block w-full dark:text-black"
               />
             </label>
             <label className="block mb-4">
-              <span className="text-gray-700">Next Due Date:</span>
+              <span className="text-gray-700 dark:text-white">Due Date:</span>
               <input
                 type="date"
                 name="next_due_date"
                 value={billData.next_due_date}
                 onChange={handleInputChange}
-                className="form-input mt-1 block w-full"
+                className="form-input pl-1 mt-1 block w-full dark:text-black"
               />
             </label>
             <label className="block mb-4">
-              <span className="text-gray-700">Bill Name:</span>
+              <span className="text-gray-700 dark:text-white">Bill Name:</span>
               <input
                 type="text"
                 name="bill"
                 value={billData.bill}
                 onChange={handleInputChange}
-                className="form-input mt-1 block w-full"
+                className="form-input pl-1 mt-1 block w-full dark:text-black"
               />
             </label>
             {/* Add other fields as needed */}
@@ -107,7 +109,7 @@ const BillForm = () => {
               </button>
               <button
                 onClick={closeModal}
-                className="bg-gray-400 text-white py-2 px-4 rounded-md hover:bg-gray-600 focus:outline-none focus:shadow-outline-gray active:bg-gray-800"
+                className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none focus:shadow-outline-gray active:bg-red-800"
               >
                 Close
               </button>

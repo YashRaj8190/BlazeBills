@@ -47,7 +47,7 @@ function Chart(){
     }
     
     return (
-        <div className= "p-8 h-full  dark:bg-slate-900 dark:text-white">
+        <div className= "p-8 h-full  dark:bg-slate-900 dark:text-white min-h-screen">
             
             <div className="flex justify-center"><h1 className="font-extrabold text-6xl mb-4 text-gray-800 font-serif dark:text-white">Expenses Analytics</h1></div>
 
@@ -67,7 +67,7 @@ function Chart(){
 
             {(data.length === 0) ? 
                 <div className="flex items-center justify-center text-6xl h-3/5">
-                    <h1 className="font-bold text-red-800 font-serif dark:bg-yellow-500" >No Data Available !!!</h1>
+                    <h1 className="font-bold text-red-800 font-serif dark:text-yellow-400" >No Data Available !!!</h1>
                 </div> :
                 <div className="flex justify-center mt-15  dark:bg-slate-900 dark:text-white">
             <ResponsiveContainer width="80%" height={380}>
