@@ -1,7 +1,6 @@
 // FriendsModal.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
 import CommentItem from './comment';
 const FriendsModal = ({ onClose, transactionId }) => {
   const [transactionDetails, setTransactionDetails] = useState();
@@ -101,7 +100,7 @@ const FriendsModal = ({ onClose, transactionId }) => {
               {user.phone === transactionDetails.transactionFrom.phone ? (
                 <ul>
                   {transactionDetails.transactionMembers.length > 0 && transactionDetails.transactionMembers.map((friend, index) => (
-                    <li key={index} className="mb-4">
+                    <li key={index} className="mb-2 p-1 flex justify-between items-center">
                       {friend.ispaid ? `${friend.name}-${friend.phone} paid ${(transactionDetails.amount / (transactionDetails.transactionMembers.length + 1)).toFixed(2)} to You` : `${friend.name}-${friend.phone} will pay ${(transactionDetails.amount / (transactionDetails.transactionMembers.length + 1)).toFixed(2)} to You`}
                       <button
                         onClick={() => markAsPaid(friend.phone)}

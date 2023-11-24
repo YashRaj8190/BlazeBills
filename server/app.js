@@ -11,6 +11,7 @@ const grouptransactionrouter=require('./routers/grouptransactionrouter');
 const grouprouter=require('./routers/groupRouter');
 const commentrouter=require('./routers/commentrouter');
 const notificationrouter=require('./routers/notificationroute');
+const sendEmailRouter=require('./routers/sendEmailRouter');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -24,7 +25,7 @@ app.use('/',grouptransactionrouter);
 app.use('/',grouprouter);
 app.use('/',commentrouter);
 app.use('/',notificationrouter);
-
+app.use('/',sendEmailRouter);
   
   app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

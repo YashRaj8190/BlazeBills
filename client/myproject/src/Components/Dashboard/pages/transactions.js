@@ -197,12 +197,12 @@ const Transaction = () => {
                 <table className="min-w-full ">
                     <thead className="bg-white sticky top-0 ">
                         <tr>
-                            <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-800 dark:text-yellow-500">Transaction Date</th>
-                            <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-800 dark:text-yellow-500">Transaction Type</th>
-                            <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-800 dark:text-yellow-500">Category</th>
-                            <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-800 dark:text-yellow-500">Description</th>
-                            <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-800 dark:text-yellow-500">Amount</th>
-                            <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-800 dark:text-yellow-500">reciept</th>
+                            <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-900 dark:text-yellow-500">Transaction Date</th>
+                            <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-900 dark:text-yellow-500">Transaction Type</th>
+                            <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-900 dark:text-yellow-500">Category</th>
+                            <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-900 dark:text-yellow-500">Description</th>
+                            <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-900 dark:text-yellow-500">Amount</th>
+                            <th className="py-2 px-4 bg-gray-200 text-left font-bold dark:bg-slate-900 dark:text-yellow-500">reciept</th>
                         </tr>
                     </thead>
                     <tbody>

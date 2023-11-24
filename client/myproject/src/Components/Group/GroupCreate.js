@@ -94,13 +94,13 @@ const GroupPage = () => {
               placeholder="Enter member phone number"
               className="border p-2 mr-2 w-1/2 dark:text-black"
             />
-            <button onClick={addMember} className="bg-green-500 text-white p-2">
+            <button onClick={addMember} className="bg-green-500 rounded ext-white p-2">
               Add Member
             </button>
           </div>
         </div>
 
-        <button onClick={createGroup} className="bg-blue-500 text-white p-2">
+        <button onClick={createGroup} className="bg-blue-500 rounded text-white p-2">
           Create Group
         </button>
       </div>
@@ -108,7 +108,7 @@ const GroupPage = () => {
       <div className="w-1/2" style={{ maxHeight: '100vh', overflowY: 'auto' }}>
       <h1 className="text-3xl font-bold mb-2 text-center">Group Name: <span className="text-4xl font-bold text-red-800">{groupName}</span></h1>
        <h1 className="text-3xl font-bold mb-2 text-center">Group Members</h1>
-      <table className="min-w-full bg-white border border-gray-300 dark:bg-slate-800">
+      <table className="min-w-full bg-white border border-gray-300 dark:bg-slate-800 text-center">
         <thead>
           <tr className="bg-gray-100 dark:text-black ">
             <th className="py-2 px-4 border-b">Name</th>

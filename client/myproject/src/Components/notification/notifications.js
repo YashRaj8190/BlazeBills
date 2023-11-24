@@ -60,14 +60,16 @@ useEffect(()=>{
 
   return (
     <div >
-      <div className="flex justify-end mb-2">
-        <button className={`p-2 bg-gray-200 rounded ${showNotifications ? 'text-red-500' : ''}`} onClick={toggleNotifications}>
-        {notificationCount > 0 && <span className="ml-1 text-xs font-bold">{notificationCount}</span>}
-          {showNotifications ? <FaTimes /> : <FaBell />}
+      <div className="flex justify-end ">
+        <button className={`px-1 py-2 bg-gray-200 rounded ${showNotifications ? 'text-red-500' : ''}`} onClick={toggleNotifications}>
+        {notificationCount >= 0 && <span className="flex items-center text-xs font-bold">
+          <FaBell style={{ fontSize: '1.5em' }}  className="mr-1" />
+          {notificationCount > 0 && <span>{notificationCount}</span>}
+        </span>}
          
         </button>
       </div>
-      {showNotifications&&<NotificationCenter setShowNotifications={setShowNotifications} showNotifications={showNotifications} notifications={notifications} removeNotification={removeNotification} />}
+      {showNotifications && <NotificationCenter setShowNotifications={setShowNotifications} showNotifications={showNotifications} notifications={notifications} removeNotification={removeNotification} />}
       
     </div>
   );
