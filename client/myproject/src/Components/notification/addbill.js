@@ -15,6 +15,25 @@ const BillForm = () => {
     bill: '',
     // Add other fields as needed
   });
+  const validateFields = () => {
+    if (billData.amount.trim() === '' || billData.next_due_date.trim() === '' || billData.bill.trim() === '') {
+      alert('Please fill in all fields.');
+      return false;
+    }
+
+    if (!/^[+]?\d*\.?\d+$/.test(billData.amount)) {
+      alert('Please enter a valid positive number for the amount.');
+      return false;
+    }
+    const currentDate = new Date();
+    const selectedDueDate = new Date(billData.next_due_date);
+
+    if (selectedDueDate <= currentDate) {
+      alert('Next due date must be greater than the present date.');
+      return false;
+    }
+    return true;
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +50,9 @@ const BillForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateFields()) {
+      return;
+    }
 
     try {
       // Make a POST request to your backend endpoint for adding bills

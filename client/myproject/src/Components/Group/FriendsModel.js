@@ -71,6 +71,7 @@ const FriendsModal = ({ onClose, transactionId }) => {
   const markAsPaid = (phone) => {
     // Add logic for marking the transaction as paid
     setPhoneNumber(phone);
+    window.location.reload();
     console.log('Mark as Paid clicked');
   };
 

@@ -54,12 +54,17 @@ const Login = () => {
     e.preventDefault();
     try{
       const res=await axios.post("http://localhost:5000/user/login",{email,password});
+       if(!res.data||!res.data.userdetails){
+        alert("server error");
+        return;
+       }
         const user=res.data.userdetails;
         console.log(user);
         localStorage.setItem("email",JSON.stringify(email));
         if(user.isVerified){
           localStorage.setItem("user",JSON.stringify(user));
           localStorage.removeItem('email');
+          localStorage.removeItem('isforgetpassword');
           navigate("/dashboard");
         }
         else{
@@ -76,6 +81,11 @@ const Login = () => {
         } 
     }
     catch(error){
+      if(!error.response){
+        console.log(error);
+        alert("server error");
+        return;
+      }
       alert(error.response.data.message);
     }
   };

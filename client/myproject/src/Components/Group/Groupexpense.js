@@ -18,7 +18,7 @@ const GroupExpense = () => {
   const [allExpenses, setAllExpenses] = useState([]);
   const [isFriendsModalOpen, setIsFriendsModalOpen] = useState(false);
   const [transactionId, setTransactionId] = useState();
-  const [groupMember,setGroupMember]=useState([]);
+  const [groupMember, setGroupMember] = useState([]);
 
   // Function to open the FriendsModal
   const openFriendsModal = (id) => {
@@ -32,10 +32,26 @@ const GroupExpense = () => {
   };
 
   const handleSplitAmount = async () => {
+    if (amount.trim() === '') {
+      alert('Please enter a amount for the expense.');
+      return;
+    }
+    if (expenseDetails.trim() === '') {
+      alert('Please enter details for the expense.');
+      return;
+    }
+    if (!/^[+]?\d*\.?\d+$/.test(amount)) {
+      alert('Please enter a valid positive number for the amount.');
+      return;
+    }
+    if(!(selectedMembers.length>0)){
+      alert("at least one member should be selected");
+      return;
+    }
     try {
       const newTransaction = {
         groupId,
-        transactionFrom: { name: admin.name, phone: admin.phone,ispaid:true},
+        transactionFrom: { name: admin.name, phone: admin.phone, ispaid: true },
         amount,
         expenseDetails,
         transactionMembers: selectedMembers,
@@ -60,7 +76,7 @@ const GroupExpense = () => {
     };
 
     axios.post("http://localhost:5000/user/getusersgrouptransaction", usersGroupTransaction)
-      .then((res) => { setAllExpenses(res.data.data);  })
+      .then((res) => { setAllExpenses(res.data.data); })
       .catch((err) => console.log("Something went wrong", err.message));
   }, [allExpenses.length]);
 
@@ -102,105 +118,105 @@ const GroupExpense = () => {
       })
       .catch((err) => console.log("Something went wrong", err.message));
   }, [groupId]);
-  
+
 
   return (
     <div className='dark:text-white dark:bg-gray-800'>
-    <h1 className="text-center text-6xl font-serif pt-10">Split money with your group !!!</h1>
-    <div className="container px-2 flex mt-10 h-[70vh] w-full dark:text-white dark:bg-slate-800 ">
-    
-      <div className="w-1/2 order-2 px-5 dark:text-white dark:bg-slate-800">
-        {group && allExpenses.length > 0 && (
-          <>
-            <h1 className="text-4xl font-semibold mb-4 text-center font-serif">{group.groupName}</h1>
-            <div className="overflow-y-scroll h-80 ">
-              <table className="min-w-full ">
-                <thead className="bg-white top-0 dark:text-white dark:bg-slate-800">
-                  <tr>
-                    <th className="py-5 px-4 border-b">Expense Details</th>
-                    <th className="py-5 px-4 border-b">Amount</th>
-                    <th className="py-5 px-4 border-b">Settlement</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {allExpenses.map((member, index) => (
-                    <tr key={index} className="hover:bg-gray-600 hover:text-white">
-                      <td className="py-2 px-4 border-b ">{member.expenseDetails}</td>
-                      <td className="py-2 px-4 border-b">{member.amount}</td>
-                      <td className="py-2 px-4 border-b">
-                        <button onClick={() => { openFriendsModal(member._id) }} className="bg-blue-800 text-white px-2 py-1 rounded-full justify-center">Click Here</button>
-                      </td>
+      <h1 className="text-center text-6xl font-serif pt-10">Split money with your group !!!</h1>
+      <div className="container px-2 flex mt-10 h-[70vh] w-full dark:text-white dark:bg-slate-800 ">
+
+        <div className="w-1/2 order-2 px-5 dark:text-white dark:bg-slate-800">
+          {group && allExpenses.length > 0 && (
+            <>
+              <h1 className="text-4xl font-semibold mb-4 text-center font-serif">{group.groupName}</h1>
+              <div className="overflow-y-scroll h-80 ">
+                <table className="min-w-full ">
+                  <thead className="bg-white top-0 dark:text-white dark:bg-slate-800">
+                    <tr>
+                      <th className="py-5 px-4 border-b">Expense Details</th>
+                      <th className="py-5 px-4 border-b">Amount</th>
+                      <th className="py-5 px-4 border-b">Settlement</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {allExpenses.map((member, index) => (
+                      <tr key={index} className="hover:bg-gray-600 hover:text-white">
+                        <td className="py-2 px-4 border-b ">{member.expenseDetails}</td>
+                        <td className="py-2 px-4 border-b">{member.amount}</td>
+                        <td className="py-2 px-4 border-b">
+                          <button onClick={() => { openFriendsModal(member._id) }} className="bg-blue-800 text-white px-2 py-1 rounded-full justify-center">Click Here</button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
+        </div>
+
+        <div className="w-1/2 p-8 overflow-y-auto max-h-screen">
+          <h1 className="text-3xl font-bold mb-2">Split Amount</h1>
+          <form>
+            <div className="mb-4">
+              <label className="block text-sm font-bold mb-2">Amount</label>
+              <input
+                type="text"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="Enter amount"
+                className="border p-2 w-full dark:text-white dark:bg-slate-800"
+              />
             </div>
-          </>
+            <div className="mb-4">
+              <label className="block text-sm font-bold mb-2">Expense Details</label>
+              <textarea
+                value={expenseDetails}
+                onChange={(e) => setExpenseDetails(e.target.value)}
+                placeholder="Enter expense details"
+                className="border p-2 w-full dark:text-white dark:bg-slate-800"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-bold mb-2">Select Members</label>
+              {groupMember.length > 0 &&
+                groupMember.map((member) => (
+
+                  <div key={member.phone} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id={member.phone}
+                      value={`${member.name}-${member.phone}`}
+                      checked={selectedMembers.some((m) => m.phone === member.phone)}
+                      onChange={() => {
+                        const isSelected = selectedMembers.some((m) => m.phone === member.phone);
+
+                        if (!isSelected) {
+                          const updatedMembers = [...selectedMembers, { name: member.name, phone: member.phone, ispaid: false }];
+                          setSelectedMembers(updatedMembers);
+                        } else {
+                          const updatedMembers = selectedMembers.filter((m) => m.phone !== member.phone);
+                          setSelectedMembers(updatedMembers);
+                        }
+                      }}
+                      className="mr-2 "
+                    />
+                    <label htmlFor={member.phone}>{member.name}-{member.phone}</label>
+                  </div>
+
+
+
+                ))}
+            </div>
+            <button type="button" onClick={handleSplitAmount} className="bg-blue-600 text-white p-2 rounded-lg font-bold hover:bg-blue-800 hover:dark:bg-white hover:dark:text-black">
+              Split Amount
+            </button>
+          </form>
+        </div>
+        {isFriendsModalOpen && (
+          <FriendsModal onClose={closeFriendsModal} transactionId={transactionId} />
         )}
       </div>
-
-      <div className="w-1/2 p-8 overflow-y-auto max-h-screen">
-        <h1 className="text-3xl font-bold mb-2">Split Amount</h1>
-        <form>
-          <div className="mb-4">
-            <label className="block text-sm font-bold mb-2">Amount</label>
-            <input
-              type="text"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="Enter amount"
-              className="border p-2 w-full dark:text-white dark:bg-slate-800"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-bold mb-2">Expense Details</label>
-            <textarea
-              value={expenseDetails}
-              onChange={(e) => setExpenseDetails(e.target.value)}
-              placeholder="Enter expense details"
-              className="border p-2 w-full dark:text-white dark:bg-slate-800"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-bold mb-2">Select Members</label>
-            {groupMember.length>0&&
-              groupMember.map((member) => (
-                
-                <div key={member.phone} className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id={member.phone}
-                    value={`${member.name}-${member.phone}`}
-                    checked={selectedMembers.some((m) => m.phone === member.phone)}
-                    onChange={() => {
-                      const isSelected = selectedMembers.some((m) => m.phone === member.phone);
-
-                      if (!isSelected) {
-                        const updatedMembers = [...selectedMembers, { name: member.name, phone: member.phone, ispaid: false }];
-                        setSelectedMembers(updatedMembers);
-                      } else {
-                        const updatedMembers = selectedMembers.filter((m) => m.phone !== member.phone);
-                        setSelectedMembers(updatedMembers);
-                      }
-                    }}
-                    className="mr-2 "
-                  />
-                  <label htmlFor={member.phone}>{member.name}-{member.phone}</label>
-                </div>
-                  
-              
-
-              ))}
-          </div>
-          <button type="button" onClick={handleSplitAmount} className="bg-blue-600 text-white p-2 rounded-lg font-bold hover:bg-blue-800 hover:dark:bg-white hover:dark:text-black">
-            Split Amount
-          </button>
-        </form>
-      </div>
-      {isFriendsModalOpen && (
-        <FriendsModal onClose={closeFriendsModal} transactionId={transactionId} />
-      )}
-    </div>
     </div>
   );
 };

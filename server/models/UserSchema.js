@@ -16,17 +16,12 @@ function isStrongPassword(value) {
       hasSpecialChar
     );
   }
-  function isValidName(value){
-    const minLength = 3; 
-    const hasDigit = /[0-9]/.test(value);
-    const hasSpecialChar = /[!@#$%^&*+=-_?>.<,"':;]/.test(value); 
-    return (
-        value.length >= minLength &&
-        (!hasDigit) &&
-        (!hasSpecialChar)
-      );
-
-  }
+  function isValidName(value) {
+    const minLength = 3;
+    const containsOnlyLettersAndSpaces = /^[a-zA-Z\s]+$/.test(value);
+    return value.length >= minLength && containsOnlyLettersAndSpaces;
+  }  
+  
 // Define a User schema having name , password ,confirmpassword,phone and email fields
 const userSchema = new mongoose.Schema({
   name: {

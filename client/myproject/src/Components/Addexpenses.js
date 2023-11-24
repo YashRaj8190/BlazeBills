@@ -27,6 +27,23 @@ function TransactionForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    for (const key in formData) {
+      if (key !== 'expensereciept' && formData[key].trim() === '') {
+        alert(`Please fill in all fields.`);
+        return;
+      }
+    }
+    if (!/^[+]?\d*\.?\d+$/.test(formData.amount)) {
+      alert('Please enter a valid positive number for the amount.');
+      return;
+    }
+    for (const key in formData) {
+      if (key !== 'expensereciept' && formData[key].trim() === '') {
+        alert(`Please fill in all fields.`);
+        return;
+      }
+    }
+
 
     try {
       // Use FormData to handle file upload

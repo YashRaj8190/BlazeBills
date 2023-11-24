@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Signup(){
-  const navigate=useNavigate();
+function Signup() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,44 +16,60 @@ function Signup(){
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    try{
-      await axios.post("http://localhost:5000/user/signup",formData).then((res)=>{
-        const user=res.data.newUser;
-        console.log(user);
-        localStorage.setItem("email",JSON.stringify(user.email));
-        if(user.isVerified){
-          localStorage.setItem("user",JSON.stringify(user));
-          navigate("/dashboard");
-        }
-        else{
+
+    try {
+      const res = await axios.post("http://localhost:5000/user/signup", formData)
+      const user = res.data.newUser;
+      console.log(user);
+      localStorage.removeItem('isforgetpassword');
+      localStorage.setItem("email", JSON.stringify(user.email));
+      if (user.isVerified) {
+        localStorage.setItem("user", JSON.stringify(user));
+        navigate("/dashboard");
+      }
+      else {
+        try {
+          const response = await axios.post("http://localhost:5000/sendotp", { email: user.email });
+          console.log(response.data);
+          localStorage.removeItem('isforgetpassword');
           navigate("/emailverificationpage");
         }
-      }) 
+        catch (err) {
+          console.log(err);
+          alert("some error occured");
+        }
+
+
+      }
+
     }
-    catch(error){
-      if(error.response.data.message){
+    catch (error) {
+      if(!error.response){
+        alert("server is not running");
+        return;
+      }
+      if (error.response.data.message) {
         alert(error.response.data.message);
       }
-      else{
+      else {
         alert(error.response.data);
       }
-      
+
     }
   };
 
   const backgroundImageUrl =
-  'https://static.vecteezy.com/system/resources/previews/004/837/342/non_2x/abstract-futuristic-background-with-glowing-light-effect-vector.jpg';
+    'https://static.vecteezy.com/system/resources/previews/004/837/342/non_2x/abstract-futuristic-background-with-glowing-light-effect-vector.jpg';
 
   return (
     <div className="min-h-screen flex items-center justify-center "
-    style={{
-      backgroundImage: `url(${backgroundImageUrl})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    }}>
+      style={{
+        backgroundImage: `url(${backgroundImageUrl})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}>
       <div className="bg-white p-8 rounded shadow-md w-96 dark:bg-slate-800 dark:text-white">
         <h2 className="text-2xl font-semibold mb-4 text-center">Sign Up</h2>
         <form onSubmit={handleSubmit}>

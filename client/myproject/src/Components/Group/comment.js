@@ -3,6 +3,7 @@ import { FaRegClock, FaComment } from 'react-icons/fa';
 
 const CommentItem = ({ comment }) => {
   // Convert the date string to a JavaScript Date object
+  console.log(comment);
   const commentDate = new Date(comment.date);
   const user=JSON.parse(localStorage.getItem('user'));
   
@@ -14,7 +15,8 @@ const CommentItem = ({ comment }) => {
         </div>
         <div>
           <p className="text-gray-700 dark:text-white dark:bg-slate-800">
-            <strong>{comment && user.phone===comment.commentedBy.phone?"You":comment.commentedBy.name}</strong>
+            {comment &&comment.commentedBy&&<strong>{ user.phone===comment.commentedBy.phone?"You":comment.commentedBy.name}</strong>}
+            
           </p>
           <p className="text-gray-700 dark:text-white dark:bg-slate-800">
             {/* Format the date using toLocaleString or other formatting options */}

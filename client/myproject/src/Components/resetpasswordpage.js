@@ -42,7 +42,7 @@ function ResetPassword() {
       navigate("/");
       
       // Display a success message or redirect to the login page
-      console.log('Password reset successful');
+      alert('Password reset successful');
     } catch (err) {
       console.error('Password reset failed', err);
       // Handle error, display a message to the user, etc.

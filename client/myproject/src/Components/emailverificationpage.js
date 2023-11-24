@@ -29,7 +29,7 @@ const EmailVerificationPage = () => {
       .post('http://localhost:5000/verifyotp', { email, enteredOTP: otp })
       .then((response) => {
         console.log(response);
-        alert(response.data);
+        alert("otp verified successfully");
         const isforgetpassword=JSON.parse(localStorage.getItem("isforgetpassword"));
         if(isforgetpassword){
             navigate("/resetpassword");
