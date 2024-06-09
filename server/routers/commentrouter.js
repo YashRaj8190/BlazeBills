@@ -1,6 +1,7 @@
 const CommentController=require('../controller/commentcontroller');
 const express=require('express');
 const router=express.Router();
-router.post('/user/addcomment',CommentController.addComment);
-router.post('/user/getcommentbytransactionid',CommentController.getCommentsByTransactionId);
+const authenticate=require('../Middleware/AuthMiddleware');
+router.post('/user/addcomment',authenticate,CommentController.addComment);
+router.post('/user/getcommentbytransactionid',authenticate,CommentController.getCommentsByTransactionId);
 module.exports=router;

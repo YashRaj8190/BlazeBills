@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt=require('bcryptjs');
 const validator =require('validator');
+const jwt=require('jsonwebtoken');
 //function to check whether a password is  strong password or not
 function isStrongPassword(value) {
     const minLength = 8; 
@@ -83,6 +84,9 @@ userSchema.pre('save',async function(next){
   this.confirmPassword=undefined;
   next();
  })
+ userSchema.methods.generateToken=function(){
+  return jwt.sign({ userId: this._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
+ }
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

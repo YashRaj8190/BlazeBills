@@ -54,12 +54,17 @@ function TransactionForm() {
       formDataWithFile.append('category', formData.category);
       formDataWithFile.append('expensereciept', file);
 
-      await axios.post(`http://localhost:5000/user/addtransaction/${user_id}`,formDataWithFile).then((res) => {
+      await axios.post(`http://localhost:5000/user/addtransaction/${user_id}`,formDataWithFile,{
+        headers:{
+            "Authorization":`Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        }
+      }).then((res) => {
         alert('Transaction added');
         console.log(res.data);
         navigate("/dashboard");
       });
     } catch (error) {
+      console.log(error);
       if (error.response.data.message) {
         alert(error.response.data.message);
       } else {

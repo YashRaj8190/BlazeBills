@@ -12,7 +12,11 @@ const Notification = () => {
   const [notificationCount, setNotificationCount] = useState(0);
   //fetch all notification those due date is less then 48 hours
 useEffect(()=>{
-    axios.post(`http://localhost:5000/trigger-notifications/${user_id}`)
+    axios.post(`http://localhost:5000/trigger-notifications/${user_id}`,{
+      headers:{
+          "Authorization":`Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      }
+    })
     .then(response => {
       const upcomingBills = response.data.upcomingBills;
       console.log(upcomingBills);
@@ -27,7 +31,11 @@ useEffect(()=>{
     // Simulate receiving notifications (replace this with actual logic)
     const intervalId = setInterval(() => {
       // Make a GET request to your backend endpoint for fetching notifications
-      axios.post(`http://localhost:5000/trigger-notifications/${user_id}`)
+      axios.post(`http://localhost:5000/trigger-notifications/${user_id}`,{
+        headers:{
+            "Authorization":`Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        }
+      })
         .then(response => {
           const upcomingBills = response.data.upcomingBills;
           console.log(upcomingBills);
@@ -43,7 +51,11 @@ useEffect(()=>{
   }, [user_id]);
 
   const removeNotification = (billId) => {
-    axios.post(`http://localhost:5000/removebill`, { billId })
+    axios.post(`http://localhost:5000/removebill`, { billId },{
+      headers:{
+          "Authorization":`Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      }
+    })
       .then(response => {
         console.log(response);
         const updatedNotifications = notifications.filter((notification) => notification.billId !== billId);

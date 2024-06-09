@@ -1,7 +1,8 @@
 const express =require('express');
 const router=express.Router();
 const billController=require('../controller/billcontroller');
-router.post('/user/addbill',billController.addBill);
-router.post('/trigger-notifications/:user_id', billController.triggerNotification);
-router.post('/removebill', billController.romoveBill);
+const authenticate=require('../Middleware/AuthMiddleware');
+router.post('/user/addbill',authenticate,billController.addBill);
+router.post('/trigger-notifications/:user_id',authenticate, billController.triggerNotification);
+router.post('/removebill',authenticate, billController.romoveBill);
 module.exports=router;

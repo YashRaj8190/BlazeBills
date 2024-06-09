@@ -14,7 +14,7 @@ class Transactioncontroller {
      newdata={...newdata,expensereciept};
      }
       const newTransaction = await Transactiondetails.create(newdata);
-      console.log(newTransaction);
+      //console.log(newTransaction);
       res.status(200).json({ message: "new Transaction is added successfully" });
     }
     catch (err) {
@@ -23,7 +23,7 @@ class Transactioncontroller {
   };
   static getTransactiondetails = async (req, res) => {
     // last week transection amount
-    
+
     if (req.body.view === '7') {
       try {
         const today = new Date();
@@ -35,7 +35,6 @@ class Transactioncontroller {
           date: { $gte: oneWeekAgo, $lte: today },
         }).sort({date:-1});
         const totalAmountByDay = {};
-
         transactions.forEach((transaction) => {
           const dateKey = transaction.date.toISOString().split('T')[0];
 

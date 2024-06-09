@@ -10,20 +10,37 @@ const FriendsModal = ({ onClose, transactionId }) => {
   let isAmountPaid = false;
   const user = JSON.parse(localStorage.getItem('user'));
 // fetch a single transaction using transaction id
-  useEffect(() => {
-    axios.post('http://localhost:5000/user/getsinglegrouptransaction', { _id: transactionId })
-      .then(response => {
-        setTransactionDetails(response.data[0]);
-      })
-      .catch(error => {
-        console.error('Error fetching transactions:', error);
-      });
+useEffect(() => {
+  const fetchData = async () => {
+      try {
+          const response = await axios.post('http://localhost:5000/user/getsinglegrouptransaction', { _id: transactionId }, {
+              headers: {
+                  "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+              }
+          });
+          setTransactionDetails(response.data[0]);
+      } catch (error) {
+          if (axios.isAxiosError(error)) {
+              // Axios error (e.g., network error, timeout, etc.)
+              alert('Error fetching transactions due to a network issue. Please check your internet connection and try again.');
+          } else if (error.response) {
+              // Server responded with a non-success status code
+              if (error.response.status === 401) {
+                  // Handle unauthorized access, e.g., redirect to login page
+                  alert('Unauthorized access. Please log in again.');
+              } else {
+                  alert('Error fetching transactions from the server. Please try again later.');
+              }
+          } else {
+              // Something else went wrong
+              alert('Error fetching transactions. Please try again.');
+          }
+      }
+  };
 
-    // Fetch comments for the transaction (this is a mock example, not linked to the backend)
-    // In a real application, you would fetch comments from the backend based on the transactionId
-    
-   
-  }, [transactionId]);
+  fetchData();
+}, [transactionId]);
+
   const handleCommentSubmit = () => {
     // Check if there's a new comment before submitting
     if (!newComment) {
@@ -33,38 +50,77 @@ const FriendsModal = ({ onClose, transactionId }) => {
   
     // Make an API call to submit the new comment
     axios.post('http://localhost:5000/user/addcomment', {
-      transactionId,
-      commentedBy: user._id, // Assuming user._id is the ID of the commenter
-      comment: newComment,
-    })
-      .then(response => {
+    transactionId,
+    commentedBy: user._id,
+    comment: newComment,
+}, {
+    headers: {
+        "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+    }
+})
+    .then(response => {
         // Update local state with the new comment from the backend
-        console.log("commented successfully",response.data);
         setNewComment('');
-      })
-      .catch(error => {
-        console.error('Error submitting comment:', error);
-        // Optionally handle the error (e.g., show an error message)
-      });
-      axios.post(`http://localhost:5000/user/getcommentbytransactionid`,{transactionId})
+    })
+    .catch(error => {
+        if (axios.isAxiosError(error)) {
+            // Axios error (e.g., network error, timeout, etc.)
+            alert('Error submitting comment due to a network issue. Please check your internet connection and try again.');
+        } else if (error.response) {
+            // Server responded with a non-success status code
+            if (error.response.status === 401) {
+                // Handle unauthorized access, e.g., redirect to login page
+                alert('Unauthorized access. Please log in again.');
+            } else {
+                alert('Error submitting comment. Please try again later.');
+            }
+        } else {
+            // Something else went wrong
+            alert('Error submitting comment. Please try again.');
+        }
+    });
+
+    axios.post(`http://localhost:5000/user/getcommentbytransactionid`, { transactionId }, {
+      headers: {
+          "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      }
+  })
       .then(response => {
-        console.log(response.data);
-        setComments(response.data);
+          setComments(response.data);
       })
       .catch(error => {
-        console.error('Error fetching comments:', error);
+          if (axios.isAxiosError(error)) {
+              // Axios error (e.g., network error, timeout, etc.)
+              alert('Error fetching comments due to a network issue. Please check your internet connection and try again.');
+          } else if (error.response) {
+              // Server responded with a non-success status code
+              if (error.response.status === 401) {
+                  // Handle unauthorized access, e.g., redirect to login page
+                  alert('Unauthorized access. Please log in again.');
+              } else {
+                  alert('Error fetching comments from the server. Please try again later.');
+              }
+          } else {
+              // Something else went wrong
+              alert('Error fetching comments. Please try again.');
+          }
       });
+  
   };
   //fetch all comments related to particular transaction
   useEffect(() => {
-    axios.post(`http://localhost:5000/user/getcommentbytransactionid`,{transactionId})
+    axios.post(`http://localhost:5000/user/getcommentbytransactionid`, { transactionId }, {
+      headers: {
+          "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      }
+  })
       .then(response => {
-        console.log(response.data);
-        setComments(response.data);
+          setComments(response.data);
       })
       .catch(error => {
-        console.error('Error fetching comments:', error);
+          alert('Error fetching comments. Please try again.');
       });
+  
   }, [transactionId,comments.length]);
   
 
@@ -80,14 +136,30 @@ const FriendsModal = ({ onClose, transactionId }) => {
   useEffect(() => {
     if (phoneNumber) {
       // Only make the update request if phoneNumber is defined
-      axios.post('http://localhost:5000/user/updatesinglegrouptransaction', { _id: transactionId, phone: phoneNumber })
+      axios.post('http://localhost:5000/user/updatesinglegrouptransaction', { _id: transactionId, phone: phoneNumber }, {
+        headers: {
+            "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        }
+    })
         .then(response => {
-          // Update local state with the new information
-          console.log("Data modified successfully", response.data);
+            // Update local state with the new information
+            alert('Data modified successfully');
         })
         .catch(error => {
-          console.error('Error fetching transactions:', error);
+           if (error.response) {
+                // Server responded with a non-success status code
+                if (error.response.status === 401) {
+                    // Handle unauthorized access, e.g., redirect to login page
+                    alert('Unauthorized access. Please log in again.');
+                } else {
+                    alert('Error modifying data. Please try again later.');
+                }
+            } else {
+                // Something else went wrong
+                alert('Error modifying data. Please try again.');
+            }
         });
+    
     }
   }, [phoneNumber, transactionId]);
 

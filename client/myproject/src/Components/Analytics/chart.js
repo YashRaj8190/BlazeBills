@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 function Chart(){
+    const navigate=useNavigate();
     const convertObjectToArray = (dataObject) => {
         return Object.entries(dataObject).map(([date, expenses]) => {
             return { date, expenses }
@@ -18,19 +19,36 @@ function Chart(){
     }
     useEffect(() => {
         const user_id = JSON.parse(localStorage.getItem('user'))._id;
-      
+        console.log(user_id);
+    
         try {
-          axios.post("http://localhost:5000/user/gettransaction", { view, user_id })
+            axios.post("http://localhost:5000/user/gettransaction", { view, user_id }, {
+                headers: {
+                    "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+                }
+            })
             .then((res) => {
-              const newData = convertObjectToArray(res.data);
-              setdata(newData);
-              
+                const newData = convertObjectToArray(res.data);
+                setdata(newData);
+                console.log(res);
+            })
+            .catch((error) => {
+                if (error.response && error.response.status === 401) {
+                    // Handle unauthorized access, e.g., redirect to login page
+                    alert("Unauthorized access. Redirecting to login.");
+                    navigate('/');
+                    // You can navigate to the login page or show a login modal here.
+                } else {
+                    console.error("Error fetching data:", error);
+                    alert("Some error occurred", error);
+                }
             });
         } catch (err) {
-          alert("Some error occurred", err);
-         
+            console.log(err);
+            alert("Some error occurred", err);
         }
-      }, [view]);
+    }, [view]);
+   
       
     let currentView = "Weekly Expenses";
 

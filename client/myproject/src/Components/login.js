@@ -54,16 +54,19 @@ const Login = () => {
     e.preventDefault();
     try{
       const res=await axios.post("http://localhost:5000/user/login",{email,password});
-       if(!res.data||!res.data.userdetails){
+        //console.log(res); 
+      if(!res.data||!res.data.userdetails){
         alert("server error");
         return;
        }
+      
         const user=res.data.userdetails;
         console.log(user);
         localStorage.setItem("email",JSON.stringify(email));
         //if user's email is verified then send it on dashboard
         if(user.isVerified){
           localStorage.setItem("user",JSON.stringify(user));
+          localStorage.setItem('token',JSON.stringify(res.data.token));
           localStorage.removeItem('email');
           localStorage.removeItem('isforgetpassword');
           navigate("/dashboard");
@@ -164,3 +167,6 @@ const Login = () => {
 };
 
 export default Login;
+
+
+

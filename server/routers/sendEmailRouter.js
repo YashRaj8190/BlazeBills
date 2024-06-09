@@ -27,8 +27,8 @@ async function sendEmail(to) {
       throw error; // Propagate the error to the caller
     }
   }
-
-router.post('/user/send-email', async (req, res) => {
+  const authenticate=require('../Middleware/AuthMiddleware');
+router.post('/user/send-email',authenticate, async (req, res) => {
     const toEmail = req.body.toEmail;
     try {
       await sendEmail(toEmail);

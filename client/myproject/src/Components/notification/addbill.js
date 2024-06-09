@@ -57,9 +57,14 @@ const BillForm = () => {
 
     try {
       // Make a POST request to your backend endpoint for adding bills
-      const response = await axios.post('http://localhost:5000/user/addbill', {
+      console.log(localStorage.getItem('token'));
+      const response = await axios.post('http://localhost:5000/user/addbill' ,{
         user_id,
         billData,
+      },{
+        headers:{
+            "Authorization":`Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        }
       });
 
       console.log('Reminder set successfully:', response.data);
@@ -67,7 +72,8 @@ const BillForm = () => {
       closeModal(); // Close the modal on successful submission
       // Optionally, you can update your UI or show a success message to the user
     } catch (error) {
-      console.error('Error adding bill:', error);
+      //console.error('Error adding bill:', error.response.data.message);
+      alert(error.response.data.message);
       // Handle errors, show error messages, etc.
     }
     setBillData({

@@ -12,7 +12,8 @@ const storage=multer.diskStorage({
     },
 });
 const upload=multer({storage:storage});
-router.post('/user/addtransaction/:user_id',upload.single("expensereciept"),Transactioncontroller.addTransactiondetails);
-router.post('/user/gettransaction',Transactioncontroller.getTransactiondetails);
-router.post('/user/getalltransaction',Transactioncontroller.getAllTransactiondetails);
+const authenticate=require('../Middleware/AuthMiddleware');
+router.post('/user/addtransaction/:user_id',authenticate,upload.single("expensereciept"),Transactioncontroller.addTransactiondetails);
+router.post('/user/gettransaction',authenticate,Transactioncontroller.getTransactiondetails);
+router.post('/user/getalltransaction',authenticate,Transactioncontroller.getAllTransactiondetails);
 module.exports=router;

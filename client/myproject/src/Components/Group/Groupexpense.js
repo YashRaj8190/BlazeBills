@@ -1,5 +1,6 @@
 // GroupDetailPage.js
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import FriendsModal from './FriendsModel';
 import { useParams } from 'react-router-dom';
@@ -7,7 +8,7 @@ import EmailFormModal from './EmailFormModal';
 
 const GroupExpense = () => {
   const { groupId } = useParams();
-
+  const navigate=useNavigate();
   const admin = JSON.parse(localStorage.getItem('user'));
 
   const [amount, setAmount] = useState('');
@@ -45,12 +46,31 @@ const GroupExpense = () => {
 // check whether group member is present in our database or not
   const checkUserExistence = async (phone) => {
     try {
-      const response = await axios.post('http://localhost:5000/user/check-user', { phone });
+      const response = await axios.post('http://localhost:5000/user/check-user', { phone }, {
+          headers: {
+              "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          }
+      });
       return response.data.exists;
-    } catch (error) {
-      console.error('Error checking user existence:', error);
-      return false;
-    }
+  } catch (error) {
+      if (axios.isAxiosError(error)) {
+          // Axios error (e.g., network error, timeout, etc.)
+          alert('Error checking user existence due to a network issue. Please check your internet connection and try again.');
+      } else if (error.response) {
+          // Server responded with a non-success status code
+          if (error.response.status === 401) {
+              // Handle unauthorized access, e.g., redirect to login page
+              alert('Unauthorized access. Please log in again.');
+          } else {
+              alert('Error checking user existence. Please try again later.');
+          }
+      } else {
+          // Something else went wrong
+          alert('Error checking user existence. Please try again.');
+      }
+      return false; // Indicate that an error occurred
+  }
+  
   };
   const [userExistenceResults, setUserExistenceResults] = useState([]);
 
@@ -91,9 +111,19 @@ const GroupExpense = () => {
         transactionMembers: selectedMembers,
       };
       setAllExpenses([]);
-      await axios.post("http://localhost:5000/user/grouptransaction", newTransaction);
+      await axios.post("http://localhost:5000/user/grouptransaction", newTransaction,{
+        headers:{
+            "Authorization":`Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        }
+      });
       alert("Transaction successful");
     } catch (err) {
+      if (err.response && err?.response?.status === 401) {
+        // Handle unauthorized access, e.g., redirect to login page
+        alert("Unauthorized access. Redirecting to login.");
+        navigate('/');
+        // You can navigate to the login page or show a login modal here.
+    }
       alert("Something went wrong");
       console.log("Something went wrong ", err.message);
     }
@@ -109,13 +139,21 @@ const GroupExpense = () => {
       userId: admin.phone,
     };
 
-    axios.post("http://localhost:5000/user/getusersgrouptransaction", usersGroupTransaction)
+    axios.post("http://localhost:5000/user/getusersgrouptransaction", usersGroupTransaction,{
+      headers:{
+          "Authorization":`Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      }
+    })
       .then((res) => { setAllExpenses(res.data.data); })
       .catch((err) => console.log("Something went wrong", err.message));
   }, [allExpenses.length]);
 //get all members of a group and store all members except user
   useEffect(() => {
-    axios.post("http://localhost:5000/user/getsinglegroup", { groupId })
+    axios.post("http://localhost:5000/user/getsinglegroup", { groupId },{
+      headers:{
+          "Authorization":`Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      }
+    })
       .then((res) => {
         const newGroup = res.data[0];
         setGroup(res.data[0]);

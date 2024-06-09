@@ -3,8 +3,10 @@ import axios from "axios";
 import { CSVLink } from 'react-csv';
 import { useReactToPrint } from 'react-to-print';
 import { Download } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Transaction = () => {
+    const navigate=useNavigate();
     const [transaction, setTransaction] = useState([]);
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const [filterData, setFilteredData] = useState([]);
@@ -27,13 +29,22 @@ const Transaction = () => {
 
     //fetching all past transactions 
     useEffect(() => {
-        axios.post('http://localhost:5000/user/getalltransaction', userObject)
+        axios.post('http://localhost:5000/user/getalltransaction', userObject,{
+            headers:{
+                "Authorization":`Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+            }
+          })
             .then(response => {
                 setTransaction(response.data);
                 console.log(response.data);
             })
             .catch(error => {
+                if(error?.response?.status==401){
+                    alert('Unauthorized access. Please log in again.');
+                }
                 console.error('Error fetching transactions:', error);
+                if(error && error.response&& error.response.data&&error.response.data.messsage){alert(error.response.data.messsage);navigate('/')};
+                
             });
     }, [transaction.length]);
 

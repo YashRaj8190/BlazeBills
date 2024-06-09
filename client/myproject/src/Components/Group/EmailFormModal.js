@@ -7,14 +7,29 @@ const EmailFormModal = ({ onClose }) => {
   const handleSendEmail = async () => {
     try {
       await axios.post('http://localhost:5000/user/send-email', {
-        toEmail,
+          toEmail,
+      }, {
+          headers: {
+              "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          }
       });
       alert('Email sent successfully!');
       onClose();
-    } catch (error) {
-      console.error('Error sending email:', error);
-      alert('Error sending email. Please try again.');
-    }
+  } catch (error) {
+      if (error.response) {
+          // Server responded with a non-success status code
+          if (error.response.status === 401) {
+              // Handle unauthorized access, e.g., redirect to login page
+              alert('Unauthorized access. Please log in again.');
+          } else {
+              alert('Error sending email. Please try again later.');
+          }
+      } else {
+          // Something else went wrong
+          alert('Error sending email. Please try again.');
+      }
+  }
+  
   };
 
   return (

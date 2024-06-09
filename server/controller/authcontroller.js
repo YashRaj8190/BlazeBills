@@ -23,7 +23,8 @@ class Authcontroller{
             }
             else{
                 const newUser = await User.create(req.body);
-                res.status(200).json({message:"successfully signup",newUser})
+                const token=newUser.generateToken();
+                res.status(200).json({message:"successfully signup",newUser,token})
                 // Respond with the created user and HTTP status 201 (Created)
             }
             } catch (error) {
@@ -56,7 +57,8 @@ class Authcontroller{
         const dbpassword=isUserPresent.password;
         const check= await bcrypt.compare(userpassword,dbpassword);
         if(check){
-            res.json({message:"you have been login successfully",userdetails:isUserPresent});
+          const token=isUserPresent.generateToken();
+            res.json({message:"you have been login successfully",userdetails:isUserPresent,token});
             next();
         }
         else{

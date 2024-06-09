@@ -12,7 +12,7 @@ const grouprouter=require('./routers/groupRouter');
 const commentrouter=require('./routers/commentrouter');
 const notificationrouter=require('./routers/notificationroute');
 const sendEmailRouter=require('./routers/sendEmailRouter');
-
+const authenticate=require('./Middleware/AuthMiddleware')
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());

@@ -19,21 +19,35 @@ const GroupPage = () => {
       return;
     }
     const adminuser=JSON.parse(localStorage.getItem('user'));
-    console.log(adminuser);
+    //console.log(adminuser);
     const newGroup = {
       groupName: groupName,
       admin:{phone:adminuser.phone,name:adminuser.name},
       members: groupMembers,
     };
-    console.log(newGroup);
-    try{
-      await axios.post("http://localhost:5000/user/creategroup",newGroup)
-      .then((res)=>{console.log(res.data)});
-      alert("group created successfully");
-    }
-    catch(err){
-      console.log(err);
-    }
+    //console.log(newGroup);
+    try {
+      await axios.post("http://localhost:5000/user/creategroup", newGroup, {
+          headers: {
+              "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          }
+      });
+      alert("Group created successfully");
+  } catch (error) {
+       if (error?.response) {
+          // Server responded with a non-success status code
+          if (error.response?.status === 401) {
+              // Handle unauthorized access, e.g., redirect to login page
+              alert('Unauthorized access. Please log in again.');
+          } else {
+              alert('Error creating group. Please try again later.');
+          }
+      } else {
+          // Something else went wrong
+          alert('Error creating group. Please try again.');
+      }
+  }
+  
     setGroupName('');
     setMemberName('');
     setMemberPhoneNumber('');

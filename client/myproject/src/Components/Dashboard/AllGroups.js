@@ -9,20 +9,40 @@ const AllGroups = () => {
   //fetching all groups in which user is included
   useEffect(() => {
     const fetchData = async () => {
-      try {
-       
-        const userPhone = user.phone;
-        const response = await axios.post('http://localhost:5000/user/getusersgroups', { userPhone });
-        setGroups(response.data);
-        console.log("all gorups",response.data);
-        setIsDataFetched(true);
-      } catch (error) {
-        console.error('Error fetching groups:', error);
-      }
+        try {
+            const userPhone = user.phone;
+            const response = await axios.post('http://localhost:5000/user/getusersgroups', { userPhone }, {
+                headers: {
+                    "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+                }
+            });
+            
+            setGroups(response.data);
+            //console.log("all groups", response.data);
+            setIsDataFetched(true);
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                // Axios error (e.g., network error, timeout, etc.)
+                //console.error('Axios error fetching groups:', error);
+                if (error.response) {
+                  // Server responded with a non-success status code
+                  if (error.response.status === 401) {
+                      // Handle unauthorized access, e.g., redirect to login page
+                      alert("Unauthorized access. Redirecting to login.");
+                      // You can navigate to the login page or show a login modal here.
+                  } else {
+                      alert('Server error:', error.response.data);
+                  }
+              }
+            }  else {
+                // Something else went wrong
+                alert('Error fetching groups:', error.message);
+            }
+        }
     };
 
     fetchData();
-  }, []);
+}, []);
 
   useEffect(() => {
     if (isDataFetched) {
